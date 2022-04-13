@@ -1,5 +1,5 @@
 # Dice Baseball
-You may be familiar with tabletop dice baseball. There are a ton of variations, but many people use the standard scoring metric. This is a chance to switch it up per batter!
+You may be familiar with tabletop dice baseball. There are a ton of variations, but many people use the standard scoring metric[^1]. This is a chance to switch it up per batter!
 
 ## Features
 - [ ] Standard Scoring Mode
@@ -14,3 +14,7 @@ You may be familiar with tabletop dice baseball. There are a ton of variations, 
 - Power hitters have 10 possible on-base possibilities
 - Average hitters have 8 possible on-base possibilities
 - Weak hitters have 6 possible on-base possibilities
+
+### References
+[^1]: Standard scoring metric --
+⚀+⚀ = Home Run, ⚀+⚁ = Double, ⚀+⚂ = Fly Out, ⚀+⚃ = Walk, ⚀+⚄ = Pop Out, ⚀+⚅ = Single, ⚁+⚁ = Double Play, ⚁+⚂ = Ground Out, ⚁+⚃ = Strike Out, ⚁+⚄ = Single, ⚁+⚅ = Strike Out, ⚂+⚂ = Walk, ⚂+⚃ = Triple, ⚂+⚄ = Ground Out, ⚂+⚅ = Fly Out, ⚃+⚃ = Walk, ⚃+⚄ = Pop Out, ⚃+⚅ = Strike Out, ⚄+⚄ = Double, ⚄+⚅ = Sacrifice Fly, ⚅+⚅ = Home Run
