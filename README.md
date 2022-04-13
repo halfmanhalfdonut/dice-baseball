@@ -9,3 +9,8 @@ You may be familiar with tabletop dice baseball. There are a ton of variations, 
 - [ ] Randomized Team Mode
 - [ ] Custom Team Maker
 - [ ] Statistics Slider
+
+## Notes
+- Power hitters have 10 possible on-base possibilities
+- Average hitters have 8 possible on-base possibilities
+- Weak hitters have 6 possible on-base possibilities
