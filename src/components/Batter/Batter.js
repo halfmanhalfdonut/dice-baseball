@@ -3,6 +3,30 @@ import { standard } from '../../data/standard.js';
 class Batter extends HTMLElement {
   constructor() {
     super();
+
+    this.currentRoll;
+  }
+
+  removeListeners = () => {
+    document.removeEventListener('dice:roll', this.handleDiceRoll);
+  }
+
+  updateUI = () => {
+    document.getElementById(this.currentRoll)?.classList?.toggle('active-roll');
+  }
+
+  handleDiceRoll = ({ detail }) => {
+    const { roll } = detail;
+    
+    this.updateUI();
+    this.currentRoll = `dice-${roll}`;
+    this.updateUI();
+
+    document.dispatchEvent('dice:roll:details', {
+      detail: {
+        data: standard[roll]
+      }
+    });
   }
 
   connectedCallback() {
@@ -19,6 +43,7 @@ class Batter extends HTMLElement {
       }
 
       const div = document.createElement('div');
+      div.setAttribute('id', `dice-${key}`);
       div.setAttribute('class', 'dice-roll');
       div.innerHTML = `<span class="dice">${entry.dice}</span> ${entry.description}`;
 
@@ -28,6 +53,8 @@ class Batter extends HTMLElement {
     wrappers.forEach(wrapper => {
       this.appendChild(wrapper);
     });
+
+    document.addEventListener('dice:roll', this.handleDiceRoll);
   }
 }
 
