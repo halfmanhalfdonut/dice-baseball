@@ -7,8 +7,7 @@ class Game extends HTMLElement {
     this.innerHTML = `
       <db-scorebox></db-scorebox>
       <db-batter></db-batter>
-      <db-bases></db-bases>
-      <db-outs></db-outs>
+      <db-field></db-field>
       <db-controls></db-controls>
     `;
   }

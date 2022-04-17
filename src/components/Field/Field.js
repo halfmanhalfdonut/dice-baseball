@@ -1,4 +1,4 @@
-class Bases extends HTMLElement {
+class Field extends HTMLElement {
   constructor() {
     super();
   }
@@ -10,4 +10,4 @@ class Bases extends HTMLElement {
   }
 }
 
-export const bases = () => customElements.define('db-bases', Bases);
+export const field = () => customElements.define('db-field', Field);

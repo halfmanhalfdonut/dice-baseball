@@ -30,6 +30,17 @@ db-game {
   text-align: center;
 }
 
+.scoreboard {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+}
+
+.team-name {
+  text-transform: capitalize;
+}
+
 db-batter {
   display: flex;
   width: 50vw;
@@ -61,6 +72,7 @@ db-batter {
 }
 
 .controls {
+  box-sizing: border-box;
   width: 50vw;
   margin: 2px auto;
   padding: 10px;
@@ -79,6 +91,7 @@ db-batter {
 }
 
 .pitch {
+  box-sizing: border-box;
   padding: 5px 10px;
   border: 0;
   background: #0c2c2c;
