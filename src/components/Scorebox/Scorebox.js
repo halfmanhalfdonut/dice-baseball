@@ -3,89 +3,173 @@ class Scorebox extends HTMLElement {
     super();
 
     this.innings = [];
+    for (let i = 0; i < 9; i++) {
+      this.innings.push({
+        home: 0,
+        visitor: 0
+      });
+    }
     this.currentInning = 0;
+    this.battingTeam = 'visitor';
 
     this.visitor = {
       runs: 0,
       hits: 0,
-      outs: 0,
     };
 
     this.home = {
       runs: 0,
       hits: 0,
+    };
+
+    this.resetInningTally();
+  }
+
+  removeEventListeners = () => {
+    document.removeEventListener('dice:roll:batter', this.handleBatter);
+  }
+
+  resetInningTally = () => {
+    this.inningTally = {
+      visitor: 0,
+      home: 0,
       outs: 0,
+      bases: []
     };
   }
 
-  getTeamRow = (team, totalInnings) => {
-    const row = document.createElement('tr');
-    const name = document.createElement('td');
-    name.setAttribute('class', 'team-name');
-    name.innerText = team;
-
-    row.appendChild(name);
-    for (let i = 0; i < totalInnings; i++) {
-      const inning = document.createElement('td');
-      inning.innerText = this.innings[i]?.[team] || '--';
-      row.appendChild(inning);
+  handleSwitchSides = () => {
+    // Is this game over or what?
+    if (this.currentInning >= 8 && this.home.runs > this.visitor.runs) {
+      // Game over
+      console.log('Game over. Home wins!');
+    } else if (this.currentInning >= 8 && this.visitor.runs > this.home.runs) {
+      if (this.battingTeam === 'home') {
+        console.log('Game over. Visitor wins!');
+      }
     }
-    const runs = document.createElement('td');
-    runs.innerText = this[team].runs;
-    row.appendChild(runs);
 
-    const hits = document.createElement('td');
-    hits.innerText = this[team].hits;
-    row.appendChild(hits);
+    if (this.battingTeam === 'visitor') {
+      this.inningTally.outs = 0;
+      this.inningTally.bases = [];
+    } else {
+      this.resetInningTally();
+      this.currentInning++;
+    }
 
-    return row;
+    this.battingTeam = this.battingTeam === 'visitor' ? 'home' : 'visitor';
+    this.inningTally.outs = 0;
+
+    // Extra innings?
+    if (!this.innings[this.currentInning]) {
+      this.innings[this.currentInning] = {
+        home: 0,
+        visitor: 0
+      };
+    }
+  }
+
+  handleRuns = runs => {
+    this.innings[this.currentInning][this.battingTeam] += runs;
+    this.inningTally[this.battingTeam] += runs;
+    this[this.battingTeam].runs += runs;
+  }
+
+  handleBases = bases => {
+    if (bases > 0) {
+      this.inningTally.bases.splice(0, 0, ...(new Array(bases).fill(null)));
+      this.inningTally.bases[bases - 1] = 'x';
+      const advances = this.inningTally.bases.splice(3);
+      const runs = advances.reduce((runners, base) => {
+        if (base === 'x') {
+          runners++;
+        }
+
+        return runners;
+      }, 0);
+
+      this.handleRuns(runs);
+    }
+  }
+
+  handleBatter = ({ detail }) => {
+    const { result } = detail;
+    const { outs, bases, hits } = result;
+    
+    this.inningTally.outs += outs;
+
+    if (this.inningTally.outs < 3) {
+      this.handleBases(bases);
+      this[this.battingTeam].hits += hits;
+    } else {
+      this.handleSwitchSides();
+    }
+
+    this.updateUI();
+  }
+
+  getTeamRow = (team, totalInnings) => {
+    let html = `<tr><td class="team-name">${team}</td>`;
+    
+    for (let i = 0; i < totalInnings; i++) {
+      let temp = '<td>&nbsp;</td>';
+      const score = this.innings[i]?.[team];
+
+      if (this.currentInning > i) {
+        temp = `<td>${score}</td>`;
+      } else if (this.currentInning === i && (this.battingTeam === 'home' || team === 'visitor')) {
+        temp = `<td>${score}</td>`;
+      }
+
+      html += temp;
+    }
+
+    return html += `<td>${this[team].runs}</td><td>${this[team].hits}</td></tr>`;
+  }
+
+  updateUI = () => {
+    const totalInnings = Math.max(this.innings.length, 9);
+
+    let tableHtml = `<table class="scoreboard"><thead><tr><th>&nbsp;</th>`;
+
+    for (let i = 0; i < totalInnings; i++) {
+      tableHtml += `<th>${i + 1}</th>`;
+    }
+
+    tableHtml += `<th>R</th><th>H</th></tr></thead>`;
+
+    tableHtml += `<tbody>`;
+    tableHtml += this.getTeamRow('visitor', totalInnings);
+    tableHtml += this.getTeamRow('home', totalInnings);
+    tableHtml += `</tbody></table>`;
+
+    let outsHtml = `<div class="outs">`;
+    if (this.inningTally.outs > 0) {
+      outsHtml += `Outs: ${new Array(this.inningTally.outs).fill('⚾').join(' ')}`;
+    } else {
+      outsHtml += `No Outs`;
+    }
+
+    outsHtml += `</div>`;
+
+    let html = tableHtml + outsHtml;
+    this.wrapper.innerHTML = html;
   }
 
   connectedCallback() {
+    this.removeEventListeners();
+
     const wrapper = document.createElement('section');
     wrapper.setAttribute('class', 'scorebox');
-
-    const scoreboard = document.createElement('table');
-    scoreboard.setAttribute('class', 'scoreboard');
-
-    const totalInnings = Math.max(this.innings.length, 9);
-
-    const thead = document.createElement('thead');
-    const tableHeadingRow = document.createElement('tr');
-    const emptyCell = document.createElement('th');
-    tableHeadingRow.appendChild(emptyCell);
-
-    for (let i = 0; i < totalInnings; i++) {
-      const inning = document.createElement('th');
-      inning.innerText = i + 1;
-      tableHeadingRow.appendChild(inning);
-    }
-
-    const runsLabel = document.createElement('th');
-    runsLabel.innerText = 'R';
-    tableHeadingRow.appendChild(runsLabel);
-
-    const hitsLabel = document.createElement('th');
-    hitsLabel.innerText = 'H';
-    tableHeadingRow.appendChild(hitsLabel);
-
-    thead.appendChild(tableHeadingRow);
-    scoreboard.appendChild(thead);
-
-    const tbody = document.createElement('tbody');
-    const visitorRow = this.getTeamRow('visitor', totalInnings);
-    const homeRow = this.getTeamRow('home', totalInnings);
-    tbody.appendChild(visitorRow);
-    tbody.appendChild(homeRow);
-    scoreboard.appendChild(tbody);
-
-    const outs = document.createElement('db-outs');
-    outs.setAttribute('class', 'outs');
-
-    wrapper.appendChild(scoreboard);
-    wrapper.appendChild(outs);
-
+    this.wrapper = wrapper;
+    this.updateUI();
     this.appendChild(wrapper);
+
+    document.addEventListener('dice:roll:batter', this.handleBatter);
+  }
+
+  disconnectedCallback() {
+    this.removeEventListeners();
   }
 }
 

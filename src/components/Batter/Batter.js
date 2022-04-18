@@ -7,7 +7,7 @@ class Batter extends HTMLElement {
     this.currentRoll;
   }
 
-  removeListeners = () => {
+  removeEventListeners = () => {
     document.removeEventListener('dice:roll', this.handleDiceRoll);
   }
 
@@ -22,14 +22,16 @@ class Batter extends HTMLElement {
     this.currentRoll = `dice-${roll}`;
     this.updateUI();
 
-    document.dispatchEvent('dice:roll:details', {
+    document.dispatchEvent(new CustomEvent('dice:roll:batter', {
       detail: {
-        data: standard[roll]
+        result: standard[roll]
       }
-    });
+    }));
   }
 
   connectedCallback() {
+    this.removeEventListeners();
+
     let wrappers = [];
     let currentWrapper = null;
 
@@ -55,6 +57,10 @@ class Batter extends HTMLElement {
     });
 
     document.addEventListener('dice:roll', this.handleDiceRoll);
+  }
+
+  disconnectedCallback() {
+    this.removeEventListeners();
   }
 }
 

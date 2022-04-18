@@ -2,11 +2,12 @@ class Controls extends HTMLElement {
   constructor() {
     super();
 
+    this.isRolling = false;
     this.counter = 0;
     this.diceMapping = [ null, '⚀', '⚁', '⚂', '⚃', '⚄', '⚅', ];
   }
 
-  removeListeners = () => {
+  removeEventListeners = () => {
     this.button?.removeEventListener('pointerup', this.handleRoll);
   }
 
@@ -29,25 +30,30 @@ class Controls extends HTMLElement {
 
       // reset counter
       this.counter = 0;
+      this.isRolling = false;
     }
   }
 
   handleRoll = () => {
-    for (let i = 0; i < 10; i++) {
-      setTimeout(this.rollDice, 250 * i);
+    if (!this.isRolling) {
+      this.isRolling = true;
+      for (let i = 0; i < 10; i++) {
+        setTimeout(this.rollDice, 250 * i);
+      }
     }
   }
 
   connectedCallback() {
-    this.removeListeners();
+    this.removeEventListeners();
     
     const wrapper = document.createElement('section');
     wrapper.setAttribute('class', 'controls');
 
     const button = document.createElement('button');
     button.setAttribute('class', 'pitch');
-    button.innerText = '⚾ Roll';
+    button.innerHTML = '⚾ &nbsp; Batter up!';
     button.addEventListener('pointerup', this.handleRoll);
+    this.button = button;
 
     const tray = document.createElement('div');
     tray.setAttribute('class', 'tray');
@@ -59,6 +65,10 @@ class Controls extends HTMLElement {
     wrapper.appendChild(button);
 
     this.appendChild(wrapper);
+  }
+
+  disconnectedCallback() {
+    this.removeEventListeners();
   }
 }
 

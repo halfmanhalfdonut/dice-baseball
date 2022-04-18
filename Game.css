@@ -91,6 +91,7 @@ db-batter {
 }
 
 .pitch {
+  cursor: pointer;
   box-sizing: border-box;
   padding: 5px 10px;
   border: 0;
