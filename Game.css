@@ -14,7 +14,7 @@ html {
 html, body {
   margin: 0;
   padding: 0;
-  font-family: 'Oswald', sans-serif;
+  font-family: Tahoma, Geneva, Verdana, sans-serif;
 }
 
 db-bases,
@@ -30,13 +30,13 @@ db-game {
   box-sizing: border-box;
   width: 100vw;
   height: 100vh;
-  padding: 4px;
+  padding: 0;
   background: repeating-linear-gradient(-45deg, #638653, #638653 20px, #718b4b 20px, #718b4b 40px);
 }
 
 .game {
   margin: 0 auto;
-  width: 50vw;
+  width: 100vw;
   box-sizing: border-box;
   text-align: center;
 }
@@ -78,14 +78,17 @@ db-batter {
 }
 
 .dice-roll {
-  font-size: 1.1em;
+  font-size: 0.7em;
   text-align: left;
   text-transform: uppercase;
+
 }
 
 .dice {
   font-size: 1.5em;
   line-height: 1em;
+  position: relative;
+  top: 1px;
 }
 
 .active-roll {
@@ -102,17 +105,17 @@ db-controls {
 }
 
 .field {
-  font-size: 5em;
+  font-size: 3em;
 }
 
 .base {
   position: relative;
-  bottom: -30px;
+  bottom: -40px;
 }
 
 .second-base {
   position: relative;
-  bottom: 30px;
+  bottom: 0;
 }
 
 .baserunner {
@@ -120,7 +123,7 @@ db-controls {
 }
 
 .tray {
-  font-size: 5em;
+  font-size: 3em;
   line-height: 1em;
   margin: 2px auto;
   padding: 0 25px 25px;
@@ -137,4 +140,42 @@ db-controls {
   color: var(--primary);
   font-weight: bold;
   text-transform: uppercase;
+}
+
+@media screen and (min-width: 768px) {
+  db-game {
+    padding: 4px;
+  }
+
+  .game {
+    width: 75vw;
+  }
+
+  .dice-roll {
+    font-size: 1.1em;
+  }
+
+  .field {
+    font-size: 5em;
+  }
+
+  .tray {
+    font-size: 5em;
+  }
+
+  .base {
+    position: relative;
+    bottom: -50px;
+  }
+  
+  .second-base {
+    position: relative;
+    bottom: 10px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .game {
+    width: 55vw;
+  }
 }

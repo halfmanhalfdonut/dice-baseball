@@ -84,10 +84,14 @@ class Scorebox extends HTMLElement {
     this[this.battingTeam].runs += runs;
   }
 
-  handleBases = bases => {
+  handleBases = (bases, isSacrifice) => {
     if (bases > 0) {
-      this.inningTally.bases.splice(0, 0, ...(new Array(bases).fill(null)));
-      this.inningTally.bases[bases - 1] = 'x';
+      this.inningTally.bases.splice(0, 0, ...(new Array(bases).fill('')));
+
+      if (!isSacrifice) {
+        this.inningTally.bases[bases - 1] = 'x';
+      }
+
       const advances = this.inningTally.bases.splice(3);
       const runs = advances.reduce((runners, base) => {
         if (base === 'x') {
@@ -108,12 +112,13 @@ class Scorebox extends HTMLElement {
 
   handleBatter = ({ detail }) => {
     const { result } = detail;
-    const { outs, bases, hits } = result;
+    const { outs, bases, hits, description } = result;
+    const isSacrifice = description.indexOf('Sacrifice') > -1;
     
     this.inningTally.outs += outs;
 
     if (this.inningTally.outs < 3) {
-      this.handleBases(bases);
+      this.handleBases(bases, isSacrifice);
       this[this.battingTeam].hits += hits;
     } else {
       this.handleSwitchSides();
