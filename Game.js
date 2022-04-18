@@ -1,9 +1,9 @@
-import * as webComponents from './src/components/index.js';
+import * as customElements from './src/custom-elements/index.js';
 
 const App = async () => {
-  Object.keys(webComponents).forEach(name => {
-    console.log(`initializing ${name} component`);
-    webComponents[name]();
+  Object.keys(customElements).forEach(name => {
+    console.log(`initializing ${name} customElement`);
+    customElements[name]();
   });
 };
 
