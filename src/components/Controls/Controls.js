@@ -9,6 +9,7 @@ class Controls extends HTMLElement {
 
   removeEventListeners = () => {
     this.button?.removeEventListener('pointerup', this.handleRoll);
+    document.removeEventListener('game:over', this.handleGameOver);
   }
 
   rollDice = () => {
@@ -43,11 +44,15 @@ class Controls extends HTMLElement {
     }
   }
 
+  handleGameOver = () => {
+    this.innerHTML = `Game over!`;
+  }
+
   connectedCallback() {
     this.removeEventListeners();
     
     const wrapper = document.createElement('section');
-    wrapper.setAttribute('class', 'controls');
+    wrapper.setAttribute('class', 'controls box');
 
     const button = document.createElement('button');
     button.setAttribute('class', 'pitch');
@@ -65,6 +70,8 @@ class Controls extends HTMLElement {
     wrapper.appendChild(button);
 
     this.appendChild(wrapper);
+
+    document.addEventListener('game:over', this.handleGameOver);
   }
 
   disconnectedCallback() {

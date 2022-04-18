@@ -1,3 +1,16 @@
+html {
+  --primary: #f3f3f3;
+  --secondary: #222222;
+  --highlight: goldenrod;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    --primary: #222222;
+    --secondary: #f3f3f3;
+  }
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -21,20 +34,34 @@ db-game {
   background: repeating-linear-gradient(-45deg, #638653, #638653 20px, #718b4b 20px, #718b4b 40px);
 }
 
-.scorebox {
-  box-sizing: border-box;
-  width: 50vw;
-  background: #f3f3f3;
+.game {
   margin: 0 auto;
+  width: 50vw;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.box {
+  box-sizing: border-box;
+  background: var(--primary);
+  color: var(--secondary);
+  margin: 5px auto 0;
   padding: 10px;
+}
+
+.scorebox {
+  margin: 0 auto;
   text-align: center;
 }
 
 .scoreboard {
   box-sizing: border-box;
   width: 100%;
-  padding: 10px;
   text-align: center;
+}
+
+.current-inning {
+  color: var(--highlight);
 }
 
 .team-name {
@@ -43,16 +70,10 @@ db-game {
 
 db-batter {
   display: flex;
-  width: 50vw;
-  margin: 2px auto;
-  padding: 10px;
   box-sizing: border-box;
-  text-align: center;
-  background: #f3f3f3;
 }
 
 .dice-column {
-  box-sizing: border-box;
   width: 33%;
 }
 
@@ -68,16 +89,34 @@ db-batter {
 }
 
 .active-roll {
-  color: goldenrod;
+  color: var(--highlight);
 }
 
-.controls {
-  box-sizing: border-box;
-  width: 50vw;
-  margin: 2px auto;
-  padding: 10px;
-  text-align: center;
-  background: #f3f3f3;
+.field-controls {
+  display: flex;
+}
+
+db-field,
+db-controls {
+  width: 50%;
+}
+
+.field {
+  font-size: 5em;
+}
+
+.base {
+  position: relative;
+  bottom: -30px;
+}
+
+.second-base {
+  position: relative;
+  bottom: 30px;
+}
+
+.baserunner {
+  color: var(--highlight);
 }
 
 .tray {
@@ -87,7 +126,6 @@ db-batter {
   padding: 0 25px 25px;
   text-align: center;
   box-sizing: border-box;
-  background: #f3f3f3;
 }
 
 .pitch {
@@ -95,8 +133,8 @@ db-batter {
   box-sizing: border-box;
   padding: 5px 10px;
   border: 0;
-  background: #0c2c2c;
-  color: #f3f3f3;
+  background: var(--secondary);
+  color: var(--primary);
   font-weight: bold;
   text-transform: uppercase;
 }
