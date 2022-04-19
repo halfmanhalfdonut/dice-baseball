@@ -66,6 +66,10 @@ db-game {
   color: var(--highlight);
 }
 
+.outs {
+  line-height: 1em;
+}
+
 .team-name {
   text-transform: capitalize;
   text-align: left;
@@ -125,13 +129,17 @@ db-controls {
   color: var(--highlight);
 }
 
-.tray {
+.tray, .game-over {
   font-size: 3em;
   line-height: 1em;
   margin: 2px auto;
   padding: 0 25px 25px;
   text-align: center;
   box-sizing: border-box;
+}
+
+.game-over {
+  text-transform: uppercase;
 }
 
 .pitch {
@@ -164,6 +172,10 @@ db-controls {
 
   .tray {
     font-size: 5em;
+  }
+
+  .game-over {
+    font-size: 3.5em;
   }
 
   .base {

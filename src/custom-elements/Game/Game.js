@@ -14,9 +14,11 @@ class Game extends HTMLElement {
 
       localStorage.setItem('teams', JSON.stringify(teams));
     }
+
+    document.addEventListener('game:new', this.handleNewGame);
   }
 
-  connectedCallback() {
+  handleNewGame = () => {
     this.innerHTML = `
       <section class="game">
         <db-scorebox></db-scorebox>
@@ -27,6 +29,10 @@ class Game extends HTMLElement {
         </section>
       </section>
     `;
+  }
+
+  connectedCallback() {
+    this.handleNewGame();
   }
 }
 

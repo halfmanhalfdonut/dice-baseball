@@ -2,6 +2,7 @@ class Controls extends HTMLElement {
   constructor() {
     super();
 
+    this.numberOfRolls = 7;
     this.isRolling = false;
     this.counter = 0;
     this.diceMapping = [ null, '⚀', '⚁', '⚂', '⚃', '⚄', '⚅', ];
@@ -9,6 +10,7 @@ class Controls extends HTMLElement {
 
   removeEventListeners = () => {
     this.button?.removeEventListener('pointerup', this.handleRoll);
+    this.newGameButton?.removeEventListener('pointerup', this.handleNewGame);
     document.removeEventListener('game:over', this.handleGameOver);
   }
 
@@ -22,7 +24,7 @@ class Controls extends HTMLElement {
 
     this.tray.innerHTML = `${this.diceMapping[one]} ${this.diceMapping[two]}`;
 
-    if (this.counter === 10) {
+    if (this.counter === this.numberOfRolls) {
       document.dispatchEvent(new CustomEvent('dice:roll', {
         detail: {
           roll: `${Math.min(one, two)}:${Math.max(one, two)}`
@@ -35,17 +37,28 @@ class Controls extends HTMLElement {
     }
   }
 
+  handleNewGame = () => {
+    document.dispatchEvent(new CustomEvent('game:new'));
+  }
+
   handleRoll = () => {
     if (!this.isRolling) {
       this.isRolling = true;
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < this.numberOfRolls; i++) {
         setTimeout(this.rollDice, 250 * i);
       }
     }
   }
 
   handleGameOver = () => {
-    this.innerHTML = `Game over!`;
+    this.innerHTML = `<div class="game-over">GAME OVER</div>`;
+    const button = document.createElement('button');
+    button.setAttribute('class', 'pitch');
+    button.innerHTML = '⚾ &nbsp; New Game';
+    button.addEventListener('pointerup', this.handleNewGame);
+    this.newGameButton = button;
+
+    this.appendChild(button);
   }
 
   connectedCallback() {
