@@ -98,12 +98,25 @@ class Scorebox extends HTMLElement {
     this[this.battingTeam].runs += runs;
   }
 
-  handleBases = (bases, isSacrifice) => {
+  handleBases = (bases, outs, isSacrifice, isWalk) => {
     if (bases > 0) {
-      this.inningTally.bases.splice(0, 0, ...(new Array(bases).fill('')));
+      if (isWalk) {
+        let baseCounter = 0;
+        let hasRunnerNextBase = this.inningTally.bases[baseCounter] === 'x';
+        while (hasRunnerNextBase) {
+          baseCounter++;
+          hasRunnerNextBase = this.inningTally.bases[baseCounter] === 'x';
+        }
 
-      if (!isSacrifice) {
-        this.inningTally.bases[bases - 1] = 'x';
+        for (let i = 0; i < baseCounter + 1; i++) {
+          this.inningTally.bases[i] = 'x';
+        }
+      } else {
+        this.inningTally.bases.splice(0, 0, ...(new Array(bases).fill('')));
+
+        if (!isSacrifice) {
+          this.inningTally.bases[bases - 1] = 'x';
+        }
       }
 
       const advances = this.inningTally.bases.splice(3);
@@ -116,23 +129,58 @@ class Scorebox extends HTMLElement {
       }, 0);
 
       this.handleRuns(runs);
-      document.dispatchEvent(new CustomEvent('dice:bases', {
-        detail: {
-          bases: this.inningTally.bases
-        }
-      }));
+    } else {
+      // double play?
+      if (outs > 1) {
+        const currentBaserunners = this.inningTally.bases.reduce((runners, base, index) => {
+          if (base === 'x') {
+            runners.push(index);
+          }
+
+          return runners;
+        }, []);
+
+        const removeIndex = currentBaserunners.length > 1 ? ~~(Math.random() * currentBaserunners.length) : 0;
+        this.inningTally.bases[removeIndex] = ''; // this guy is out
+      }
     }
+
+    document.dispatchEvent(new CustomEvent('dice:bases', {
+      detail: {
+        bases: this.inningTally.bases
+      }
+    }));
+  }
+
+  handleOuts = outs => {
+    // can't double play when no one else is on base
+    if (outs > 1) {
+      const totalCurrentBaserunners = this.inningTally.bases.reduce((total, base) => {
+        if (base === 'x') {
+          total += 1;
+        }
+
+        return total;
+      }, 0);
+
+      if (totalCurrentBaserunners === 0) {
+        outs = 1;
+      }
+    }
+
+    this.inningTally.outs += outs;
   }
 
   handleBatter = ({ detail }) => {
     const { result } = detail;
     const { outs, bases, hits, description } = result;
     const isSacrifice = description.indexOf('Sacrifice') > -1;
+    const isWalk = description.indexOf('Walk') > -1;
     
-    this.inningTally.outs += outs;
+    this.handleOuts(outs);
 
     if (this.inningTally.outs < 3) {
-      this.handleBases(bases, isSacrifice);
+      this.handleBases(bases, outs, isSacrifice, isWalk);
       this[this.battingTeam].hits += hits;
     } else {
       this.handleSwitchSides();
