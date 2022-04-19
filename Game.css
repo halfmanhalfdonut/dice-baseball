@@ -68,6 +68,7 @@ db-game {
 
 .team-name {
   text-transform: capitalize;
+  text-align: left;
 }
 
 db-batter {

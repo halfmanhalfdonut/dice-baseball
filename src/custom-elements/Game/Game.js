@@ -1,6 +1,19 @@
+import teamGenerator from '../../services/TeamGenerator/TeamGenerator.js';
+
 class Game extends HTMLElement {
   constructor() {
     super();
+
+    if (!localStorage.getItem('teams')) {
+      console.log('Generating Teams');
+      const teams = [];
+
+      for (let i = 0; i < 10; i++) {
+        teams.push(teamGenerator.generateTeam());
+      }
+
+      localStorage.setItem('teams', JSON.stringify(teams));
+    }
   }
 
   connectedCallback() {

@@ -23,7 +23,21 @@ class Scorebox extends HTMLElement {
       hits: 0,
     };
 
+    this.setTeams();
     this.resetInningTally();
+  }
+
+  setTeams = () => {
+    const teams = JSON.parse(localStorage.getItem('teams'));
+    const visitor = ~~(Math.random() * teams.length);
+    let home = visitor;
+
+    while (home === visitor) {
+      home = ~~(Math.random() * teams.length);
+    }
+
+    this.visitor.team = teams[visitor];
+    this.home.team = teams[home];
   }
 
   removeEventListeners = () => {
@@ -127,8 +141,14 @@ class Scorebox extends HTMLElement {
     this.updateUI();
   }
 
+  getTeamColors = colors => {
+    return Object.keys(colors).reduce((memo, key) => {
+      return `${memo}<span class="team-color" style="background: ${colors[key]};">&nbsp;&nbsp;</span>`;
+    }, '');
+  }
+
   getTeamRow = (team, totalInnings) => {
-    let html = `<tr><td class="team-name">${team}</td>`;
+    let html = `<tr><td class="team-name">${this.getTeamColors(this[team].team.colors)} ${this[team].team.name}</td>`;
     
     for (let i = 0; i < totalInnings; i++) {
       const cssClass = (team === this.battingTeam && this.currentInning === i) ? 'current-inning' : '';
