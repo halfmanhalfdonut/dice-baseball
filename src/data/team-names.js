@@ -17,6 +17,10 @@ const towns = [
   'Portland',
   'Orange',
   'Lemon',
+  'Omaha',
+  'Witchita',
+  'Helena',
+  'Tucson',
 ];
 
 const adjectives = [
@@ -38,6 +42,10 @@ const adjectives = [
   'Upset',
   'Quaint',
   'Drab',
+  'Turbo',
+  'Glistening',
+  'Rusty',
+  'Dirty',
 ];
 
 const nouns = [
@@ -59,6 +67,11 @@ const nouns = [
   'Finches',
   'Drones',
   'Zombies',
+  'Hedgehogs',
+  'Dwarves',
+  'Trolls',
+  'Elves',
+  'Cars',
 ];
 
 
