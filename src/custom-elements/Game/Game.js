@@ -1,9 +1,15 @@
 import teamGenerator from '../../services/TeamGenerator/TeamGenerator.js';
-import playerGenerator from '../../services/PlayerGenerator/PlayerGenerator.js';
 
 class Game extends HTMLElement {
   constructor() {
     super();
+    
+    this.GAME_VERSION = '2.0';
+
+    const version = localStorage.getItem('version');
+    if (version !== this.GAME_VERSION) {
+      localStorage.removeItem('teams');
+    }
 
     const totalTeams = 10;
 
