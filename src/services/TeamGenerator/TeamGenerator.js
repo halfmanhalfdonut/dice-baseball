@@ -1,4 +1,5 @@
 import * as namingData from '../../data/team-names.js';
+import playerGenerator from '../PlayerGenerator/PlayerGenerator.js';
 
 class TeamGenerator {
   constructor() {
@@ -6,6 +7,7 @@ class TeamGenerator {
     this.towns = [];
     this.nouns = [];
     this.adjectives = [];
+    this.rosterSize = 26;
 
     this.townsLength = namingData.towns.length;
     this.nounsLength = namingData.nouns.length;
@@ -53,10 +55,21 @@ class TeamGenerator {
     return name;
   }
 
+  generateRoster = () => {
+    const roster = [];
+
+    for (let i = 0; i < this.rosterSize; i++) {
+      roster.push(playerGenerator.generatePlayer());
+    }
+
+    return roster;
+  }
+
   generateTeam = () => {
     return {
       name: this.generateTeamName(),
-      colors: this.generateColors()
+      colors: this.generateColors(),
+      roster: this.generateRoster(),
     }
   }
 }

@@ -75,7 +75,17 @@ db-game {
   text-align: left;
 }
 
-db-batter {
+.batter-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75em;
+}
+
+.batter-name {
+  font-weight: bold;
+}
+
+.dice-columns {
   display: flex;
   box-sizing: border-box;
 }

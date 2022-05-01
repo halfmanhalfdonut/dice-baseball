@@ -1,14 +1,17 @@
 import teamGenerator from '../../services/TeamGenerator/TeamGenerator.js';
+import playerGenerator from '../../services/PlayerGenerator/PlayerGenerator.js';
 
 class Game extends HTMLElement {
   constructor() {
     super();
 
+    const totalTeams = 10;
+
     if (!localStorage.getItem('teams')) {
       console.log('Generating Teams');
       const teams = [];
 
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < totalTeams; i++) {
         teams.push(teamGenerator.generateTeam());
       }
 

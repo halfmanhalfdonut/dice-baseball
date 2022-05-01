@@ -44,7 +44,7 @@ const adjectives = [
   'Drab',
   'Turbo',
   'Glistening',
-  'Rusty',
+  'Vibrant',
   'Dirty',
 ];
 
@@ -52,12 +52,12 @@ const nouns = [
   'Donkeys',
   'Squirrels',
   'Stranglers',
-  'Kijetesantakalu',
+  'Raccoons',
   'Foxes',
   'Ghosts',
   'Pigs',
   'Tanks',
-  'Jugglers',
+  'Jalopies',
   'Parrots',
   'Hawks',
   'Storks',
@@ -71,7 +71,7 @@ const nouns = [
   'Dwarves',
   'Trolls',
   'Elves',
-  'Cars',
+  'Oxen',
 ];
 
 

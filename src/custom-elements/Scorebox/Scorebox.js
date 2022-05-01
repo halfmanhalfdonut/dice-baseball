@@ -16,15 +16,18 @@ class Scorebox extends HTMLElement {
     this.visitor = {
       runs: 0,
       hits: 0,
+      batter: 0,
     };
 
     this.home = {
       runs: 0,
       hits: 0,
+      batter: 0,
     };
 
     this.setTeams();
     this.resetInningTally();
+    this.dispatchBatter();
   }
 
   setTeams = () => {
@@ -38,6 +41,18 @@ class Scorebox extends HTMLElement {
 
     this.visitor.team = teams[visitor];
     this.home.team = teams[home];
+  }
+
+  dispatchBatter = () => {
+    const battingTeam = this[this.battingTeam];
+    const roster = battingTeam.team.roster;
+
+    document.dispatchEvent(new CustomEvent('batter:change', {
+      detail: {
+        batter: roster[battingTeam.batter],
+        battingTeam: battingTeam.team
+      }
+    }));
   }
 
   removeEventListeners = () => {
@@ -171,6 +186,14 @@ class Scorebox extends HTMLElement {
     this.inningTally.outs += outs;
   }
 
+  updateBatter = () => {
+    if (this[this.battingTeam].batter === 8) {
+      this[this.battingTeam].batter = 0;
+    } else {
+      this[this.battingTeam].batter++;
+    }
+  }
+
   handleBatter = ({ detail }) => {
     const { result } = detail;
     const { outs, bases, hits, description } = result;
@@ -178,6 +201,7 @@ class Scorebox extends HTMLElement {
     const isWalk = description.indexOf('Walk') > -1;
     
     this.handleOuts(outs);
+    this.updateBatter();
 
     if (this.inningTally.outs < 3) {
       this.handleBases(bases, outs, isSacrifice, isWalk);
@@ -187,6 +211,9 @@ class Scorebox extends HTMLElement {
     }
 
     this.updateUI();
+    setTimeout(() => {
+      this.dispatchBatter();
+    }, 1000);
   }
 
   getTeamColors = colors => {
