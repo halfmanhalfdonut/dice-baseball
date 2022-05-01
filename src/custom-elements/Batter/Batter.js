@@ -90,7 +90,6 @@ class Batter extends HTMLElement {
   }
 
   handleBatterChange = ({ detail }) => {
-    console.log('Handling batter change', detail);
     this.currentBatter = detail.batter;
     this.battingTeam = detail.battingTeam;
     this.updateUI();
