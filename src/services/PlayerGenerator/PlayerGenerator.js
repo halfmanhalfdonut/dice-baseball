@@ -35,9 +35,9 @@ class PlayerGenerator {
     const random = ~~(Math.random() * 13);
     let batterType = 'average';
 
-    if (random === 12) {
+    if (random >= 11) {
       batterType = 'homer';
-    } else if (random > 9) {
+    } else if (random >= 9 ) {
       batterType = 'slugger';
     } else if (random === 0) {
       batterType = 'blind';

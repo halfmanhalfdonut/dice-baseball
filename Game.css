@@ -62,6 +62,10 @@ db-game {
   text-align: center;
 }
 
+.low-opacity {
+  opacity: 0.2;
+}
+
 .team-logo {
   display: inline-block;
   position: relative;

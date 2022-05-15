@@ -88,7 +88,6 @@ class Batter extends HTMLElement {
   }
 
   handleBatterChange = ({ detail }) => {
-    console.log(detail.batter);
     this.currentBatter = detail.batter;
     this.battingTeam = detail.battingTeam;
     this.updateUI();
@@ -100,7 +99,6 @@ class Batter extends HTMLElement {
 
     document.addEventListener('dice:roll', this.handleDiceRoll);
     document.addEventListener('batter:change', this.handleBatterChange);
-    console.log('event listeners added');
   }
 
   disconnectedCallback() {
