@@ -37,9 +37,7 @@ class Batter extends HTMLElement {
     
     if (this.currentBatter) {
       outerWrapper.innerHTML = `<header class="batter-details">
-        <span class="now-batting">Now Batting</span>&nbsp;
-        <span class="batter-name">${this.currentBatter?.name}</span>&nbsp;
-        <span class="batter-type">${this.getStars()}</span>&nbsp;
+        <span class="batter-name">${this.currentBatter?.name} ${this.getStars()}</span>&nbsp;
         <span class="batter-team">${this.battingTeam.name}</span>
       </header>`;
       let wrappers = [];

@@ -7,6 +7,7 @@ class Field extends HTMLElement {
   removeEventListeners = () => {
     document.removeEventListener('dice:bases', this.handleRunners);
     document.removeEventListener('dice:switch', this.handleReset);
+    document.removeEventListener('game:new', this.handleReset);
   }
 
   handleRunners = ({ detail }) => {
@@ -47,6 +48,7 @@ class Field extends HTMLElement {
   connectedCallback() {
     document.addEventListener('dice:bases', this.handleRunners);
     document.addEventListener('dice:switch', this.handleReset);
+    document.addEventListener('game:new', this.handleReset);
     this.updateUI();
   }
 
