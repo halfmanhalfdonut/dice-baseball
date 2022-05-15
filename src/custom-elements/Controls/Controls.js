@@ -85,7 +85,7 @@ class Controls extends HTMLElement {
   handleGameOver = () => {
     clearInterval(this.simulationInterval);
     this.isSimulating = false;
-    this.innerHTML = `<div class="game-over">GAME OVER</div>`;
+    this.innerHTML = `<div class="game-over">GAME<br>OVER</div>`;
     const button = document.createElement('button');
     button.setAttribute('class', 'pitch');
     button.innerHTML = '⚾ &nbsp; New Game';

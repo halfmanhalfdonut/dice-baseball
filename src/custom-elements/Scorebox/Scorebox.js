@@ -84,11 +84,11 @@ class Scorebox extends HTMLElement {
     const { outs } = detail;
 
     if (outs === 0) {
-      this.outs.innerHTML = `Outs: <span class="low-opacity">⚾</span><span class="low-opacity">⚾</span>`;
+      this.outs.innerHTML = `Outs: <span class="low-opacity">⚾</span>&nbsp;<span class="low-opacity">⚾</span>`;
     } else if (outs === 1) {
-      this.outs.innerHTML = `Outs: ⚾<span class="low-opacity">⚾</span>`;
+      this.outs.innerHTML = `Outs: ⚾&nbsp;<span class="low-opacity">⚾</span>`;
     } else if (outs === 2) {
-      this.outs.innerHTML = `Outs: ⚾⚾`;
+      this.outs.innerHTML = `Outs: ⚾&nbsp;⚾`;
     }
   }
 
