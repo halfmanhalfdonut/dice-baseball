@@ -2,6 +2,10 @@ class Scorebox extends HTMLElement {
   constructor() {
     super();
 
+    this.initializeNewGame();    
+  }
+
+  initializeNewGame = () => {
     this.batterTimeout = 1000;
     this.isGameOver = false;
     this.innings = [];
@@ -29,6 +33,11 @@ class Scorebox extends HTMLElement {
     this.setTeams();
     this.resetInningTally();
     this.dispatchBatter();
+    this.updateUI();
+  }
+
+  handleNewGame = () => {
+    this.initializeNewGame();
   }
 
   setTeams = () => {
@@ -59,6 +68,7 @@ class Scorebox extends HTMLElement {
   removeEventListeners = () => {
     document.removeEventListener('dice:roll:batter', this.handleBatter);
     document.removeEventListener('game:simulate', this.handleSimulate);
+    document.removeEventListener('game:new', this.handleNewGame);
   }
 
   resetInningTally = () => {
@@ -260,32 +270,34 @@ class Scorebox extends HTMLElement {
   }
 
   updateUI = () => {
-    const totalInnings = Math.max(this.innings.length, 9);
+    if (this.wrapper) {
+      const totalInnings = Math.max(this.innings.length, 9);
 
-    let tableHtml = `<table class="scoreboard"><thead><tr><th>&nbsp;</th>`;
+      let tableHtml = `<table class="scoreboard"><thead><tr><th>&nbsp;</th>`;
 
-    for (let i = 0; i < totalInnings; i++) {
-      tableHtml += `<th>${i + 1}</th>`;
+      for (let i = 0; i < totalInnings; i++) {
+        tableHtml += `<th>${i + 1}</th>`;
+      }
+
+      tableHtml += `<th>R</th><th>H</th></tr></thead>`;
+
+      tableHtml += `<tbody>`;
+      tableHtml += this.getTeamRow('visitor', totalInnings);
+      tableHtml += this.getTeamRow('home', totalInnings);
+      tableHtml += `</tbody></table>`;
+
+      let outsHtml = `<div class="outs">`;
+      if (this.inningTally.outs > 0) {
+        outsHtml += `Outs: ${new Array(this.inningTally.outs).fill('⚾').join(' ')}`;
+      } else {
+        outsHtml += `No Outs`;
+      }
+
+      outsHtml += `</div>`;
+
+      let html = tableHtml + outsHtml;
+      this.wrapper.innerHTML = html;
     }
-
-    tableHtml += `<th>R</th><th>H</th></tr></thead>`;
-
-    tableHtml += `<tbody>`;
-    tableHtml += this.getTeamRow('visitor', totalInnings);
-    tableHtml += this.getTeamRow('home', totalInnings);
-    tableHtml += `</tbody></table>`;
-
-    let outsHtml = `<div class="outs">`;
-    if (this.inningTally.outs > 0) {
-      outsHtml += `Outs: ${new Array(this.inningTally.outs).fill('⚾').join(' ')}`;
-    } else {
-      outsHtml += `No Outs`;
-    }
-
-    outsHtml += `</div>`;
-
-    let html = tableHtml + outsHtml;
-    this.wrapper.innerHTML = html;
   }
 
   connectedCallback() {
@@ -299,6 +311,7 @@ class Scorebox extends HTMLElement {
 
     document.addEventListener('dice:roll:batter', this.handleBatter);
     document.addEventListener('game:simulate', this.handleSimulate);
+    document.addEventListener('game:new', this.handleNewGame);
   }
 
   disconnectedCallback() {

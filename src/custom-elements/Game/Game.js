@@ -25,11 +25,9 @@ class Game extends HTMLElement {
     }
 
     localStorage.setItem('version', this.GAME_VERSION);
-
-    document.addEventListener('game:new', this.handleNewGame);
   }
 
-  handleNewGame = () => {
+  connectedCallback() {
     this.innerHTML = `
       <section class="game">
         <db-scorebox></db-scorebox>
@@ -40,10 +38,6 @@ class Game extends HTMLElement {
         </section>
       </section>
     `;
-  }
-
-  connectedCallback() {
-    this.handleNewGame();
   }
 }
 

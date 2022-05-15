@@ -44,6 +44,7 @@ class Controls extends HTMLElement {
 
   handleNewGame = () => {
     document.dispatchEvent(new CustomEvent('game:new'));
+    this.initializeUI();
   }
 
   handleRoll = () => {
@@ -71,7 +72,7 @@ class Controls extends HTMLElement {
       this.numberOfRolls = this.SIMULATED_ROLLS;
       this.simulationInterval = setInterval(() => {
         this.rollDice();
-      }, 500);
+      }, 750);
       this.simulateButton.innerHTML = '🤖 &nbsp; Stop Auto-Roll';
       document.dispatchEvent(new CustomEvent('game:simulate', {
         detail: {
@@ -94,9 +95,9 @@ class Controls extends HTMLElement {
     this.appendChild(button);
   }
 
-  connectedCallback() {
-    this.removeEventListeners();
-    
+  initializeUI = () => {
+    this.innerHTML = '';
+
     const wrapper = document.createElement('section');
     wrapper.setAttribute('class', 'controls box');
 
@@ -123,6 +124,12 @@ class Controls extends HTMLElement {
     wrapper.appendChild(simulateButton);
 
     this.appendChild(wrapper);
+  }
+
+  connectedCallback() {
+    this.removeEventListeners();
+    
+    this.initializeUI();
 
     document.addEventListener('game:over', this.handleGameOver);
   }
