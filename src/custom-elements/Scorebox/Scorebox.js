@@ -2,6 +2,7 @@ class Scorebox extends HTMLElement {
   constructor() {
     super();
 
+    this.batterTimeout = 1000;
     this.isGameOver = false;
     this.innings = [];
     for (let i = 0; i < 9; i++) {
@@ -57,6 +58,7 @@ class Scorebox extends HTMLElement {
 
   removeEventListeners = () => {
     document.removeEventListener('dice:roll:batter', this.handleBatter);
+    document.removeEventListener('game:simulate', this.handleSimulate);
   }
 
   resetInningTally = () => {
@@ -216,14 +218,29 @@ class Scorebox extends HTMLElement {
     }, 1000);
   }
 
-  getTeamColors = colors => {
-    return Object.keys(colors).reduce((memo, key) => {
-      return `${memo}<span class="team-color" style="background: ${colors[key]};">&nbsp;&nbsp;</span>`;
-    }, '');
+  handleSimulate = ({ detail }) => {
+    this.batterTimeout = detail.isSimulating ? 0 : 1000;
+  }
+
+  getTeamLogo = team => {
+    const { name, colors } = team;
+    const [ city, ...nickname ] = name.split(' ');
+    let firstLetter = city.charAt(0);
+    let secondLetter = nickname[0].charAt(0);
+
+    if (nickname.length > 1) {
+      firstLetter = nickname[0].charAt(0);
+      secondLetter = nickname[1].charAt(0);
+    }
+
+    return `<div class="team-logo">
+      <span class="team-logo-first" style="color: ${colors.primary}">${firstLetter}</span>
+      <span class="team-logo-second" style="color: ${colors.secondary}">${secondLetter}</span>
+    </div>`;
   }
 
   getTeamRow = (team, totalInnings) => {
-    let html = `<tr><td class="team-name">${this.getTeamColors(this[team].team.colors)} ${this[team].team.name}</td>`;
+    let html = `<tr><td class="team-name">${this.getTeamLogo(this[team].team)} ${this[team].team.name}</td>`;
     
     for (let i = 0; i < totalInnings; i++) {
       const cssClass = (team === this.battingTeam && this.currentInning === i) ? 'current-inning' : '';
@@ -281,6 +298,7 @@ class Scorebox extends HTMLElement {
     this.appendChild(wrapper);
 
     document.addEventListener('dice:roll:batter', this.handleBatter);
+    document.addEventListener('game:simulate', this.handleSimulate);
   }
 
   disconnectedCallback() {

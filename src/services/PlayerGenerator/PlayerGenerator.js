@@ -50,21 +50,14 @@ class PlayerGenerator {
 
   generateStats = name => {
     const stats = {};
-    const usedIndexes = [];
     const max = this[name].length;
-    let counter = 0;
     let firstDie = 1;
     let secondDie = 1;
 
-    while (counter < max) {
-      let randomIndex = -1;
-      while (randomIndex < 0 || usedIndexes.includes(randomIndex)) {
-        randomIndex = ~~(Math.random() * max);
-      }
-
+    for (let i = 0; i < max; i++) {
       stats[`${firstDie}:${secondDie}`] = Object.assign({
         dice: `${diceCharacters[firstDie]}${diceCharacters[secondDie]}`
-      }, this[name][randomIndex]);
+      }, this[name][i]);
 
       if (secondDie === 6) {
         firstDie++;
@@ -72,8 +65,6 @@ class PlayerGenerator {
       } else {
         secondDie++;
       }
-      usedIndexes.push(randomIndex);
-      counter++;
     }
 
     return stats;

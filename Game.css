@@ -62,6 +62,21 @@ db-game {
   text-align: center;
 }
 
+.team-logo {
+  display: inline-block;
+  position: relative;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: monospace;
+  margin-right: 5px;
+}
+
+.team-logo-second {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
 .current-inning {
   color: var(--highlight);
 }
@@ -152,15 +167,22 @@ db-controls {
   text-transform: uppercase;
 }
 
-.pitch {
+.button {
   cursor: pointer;
   box-sizing: border-box;
   padding: 5px 10px;
+  margin: 0 10px;
   border: 0;
   background: var(--secondary);
   color: var(--primary);
   font-weight: bold;
   text-transform: uppercase;
+  transition: background 1s, color 1s;
+}
+
+.button:hover {
+  background: var(--primary);
+  color: var(--secondary);
 }
 
 @media screen and (min-width: 768px) {

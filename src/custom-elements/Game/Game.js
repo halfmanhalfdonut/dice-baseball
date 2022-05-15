@@ -24,6 +24,8 @@ class Game extends HTMLElement {
       localStorage.setItem('teams', JSON.stringify(teams));
     }
 
+    localStorage.setItem('version', this.GAME_VERSION);
+
     document.addEventListener('game:new', this.handleNewGame);
   }
 
