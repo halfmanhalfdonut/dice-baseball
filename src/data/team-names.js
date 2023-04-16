@@ -2,7 +2,7 @@ const towns = [
   'Columbia',
   'Paterson',
   'Woonsocket',
-  'St. Petersburg',
+  'Petersburg',
   'Reno',
   'Erie',
   'Scranton',
@@ -13,7 +13,7 @@ const towns = [
   'Mahwah',
   'Belleville',
   'Hanover',
-  'San Jose',
+  'Sacramento',
   'Portland',
   'Orange',
   'Lemon',
@@ -44,7 +44,7 @@ const adjectives = [
   'Drab',
   'Turbo',
   'Glistening',
-  'Rusty',
+  'Vibrant',
   'Dirty',
 ];
 
@@ -52,12 +52,12 @@ const nouns = [
   'Donkeys',
   'Squirrels',
   'Stranglers',
-  'Kijetesantakalu',
+  'Raccoons',
   'Foxes',
   'Ghosts',
   'Pigs',
   'Tanks',
-  'Jugglers',
+  'Jalopies',
   'Parrots',
   'Hawks',
   'Storks',
@@ -71,7 +71,7 @@ const nouns = [
   'Dwarves',
   'Trolls',
   'Elves',
-  'Cars',
+  'Oxen',
 ];
 
 

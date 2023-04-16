@@ -4,9 +4,9 @@ You may be familiar with tabletop dice baseball. There are a ton of variations, 
 ## Features
 - [x] Standard Scoring Mode
 - [x] Home vs Visitor
-- [ ] Original Teams
+- [x] Original Teams
 - [ ] Graphics
-- [ ] Randomized Team Mode
+- [x] Randomized Team Mode
 - [ ] Custom Team Maker
 - [ ] Statistics Slider
 
