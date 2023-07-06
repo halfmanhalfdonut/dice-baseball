@@ -1,77 +1,77 @@
-import * as namingData from '../../data/team-names.js';
-import playerGenerator from '../PlayerGenerator/PlayerGenerator.js';
+import nouns from '../../data/nouns.js';
+import adjectives from '../../data/adjectives.js';
+import towns from '../../data/towns.js';
+import PlayerGenerator from '../PlayerGenerator/PlayerGenerator.js';
+import Utils from '../Utils/Utils.js';
 
-class TeamGenerator {
-  constructor() {
-    console.log('Team Generator initialized');
-    this.towns = [];
-    this.nouns = [];
-    this.adjectives = [];
-    this.rosterSize = 26;
+const TeamGenerator = {
+  ROSTER_SIZE: 26,
+  towns: [],
+  nouns: [],
+  adjectives: [],
 
-    this.townsLength = namingData.towns.length;
-    this.nounsLength = namingData.nouns.length;
-    this.adjectivesLength = namingData.adjectives.length;
-  }
+  townsLength: towns.length,
+  nounsLength: nouns.length,
+  adjectivesLength: adjectives.length,
 
-  generateHex = () => {
-    const chars = 'abcdef0123456789'.split('');
+  generateHex: () => {
+    let chars = 'abcdef0123456789'.split('');
   
     let hex = '#';
     for (let i = 0; i < 6; i++) {
-      hex += chars[~~(Math.random() * 16)];
+      hex += chars[Utils.random(16)];
     }
   
     return hex;
-  }
+  },
 
-  generateColors = () => {
-    const primary = this.generateHex();
-    const secondary = this.generateHex();
+  generateColors: () => {
+    const primary = TeamGenerator.generateHex();
+    const secondary = TeamGenerator.generateHex();
   
     return { primary, secondary };
-  }
+  },
 
-  getIndex = name => {
-    let randomIndex = ~~(Math.random() * this[`${name}Length`]);
-    while (this[name].includes(randomIndex)) {
-      randomIndex = ~~(Math.random() * this[`${name}Length`]);
+  getIndex: source => {
+    let randomIndex = Utils.random(TeamGenerator[`${source}Length`]);
+    while (TeamGenerator[source].includes(randomIndex)) {
+      randomIndex = Utils.random(TeamGenerator[`${source}Length`]);
     }
-    this[name].push(randomIndex);
+    TeamGenerator[source].push(randomIndex);
 
     return randomIndex;
-  }
+  },
 
-  generateTeamName = () => {
-    let name = `${namingData.towns[this.getIndex('towns')]} `;
+  generateTeamName: () => {
+    let name = `${towns[TeamGenerator.getIndex('towns')]} `;
 
     // Sometimes add an adjective
-    if (~~(Math.random() * 5) < 1) {
-      name += `${namingData.adjectives[this.getIndex('adjectives')]} `;
+    if (Utils.random(18) < 1) {
+      name += `${adjectives[TeamGenerator.getIndex('adjectives')]} `;
     }
 
-    name += namingData.nouns[this.getIndex('nouns')];
+    name += nouns[TeamGenerator.getIndex('nouns')];
 
     return name;
-  }
+  },
 
-  generateRoster = () => {
-    const roster = [];
+  generateRoster: () => {
+    let roster = [];
 
-    for (let i = 0; i < this.rosterSize; i++) {
-      roster.push(playerGenerator.generatePlayer());
+    for (let i = 0; i < TeamGenerator.ROSTER_SIZE; i++) {
+      roster.push(PlayerGenerator.generatePlayer());
     }
 
     return roster;
-  }
+  },
 
-  generateTeam = () => {
+  generateTeam: () => {
     return {
-      name: this.generateTeamName(),
-      colors: this.generateColors(),
-      roster: this.generateRoster(),
+      name: TeamGenerator.generateTeamName(),
+      colors: TeamGenerator.generateColors(),
+      roster: TeamGenerator.generateRoster(),
     }
-  }
+  },
 }
 
-export default new TeamGenerator();
+export default TeamGenerator;

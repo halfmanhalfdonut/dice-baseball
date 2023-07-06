@@ -1,38 +1,35 @@
-import * as namingData from '../../data/player-names.js';
+import Utils from '../Utils/Utils.js';
+import firstNames from '../../data/first-names.js';
+import lastNames from '../../data/last-names.js';
 import { average, homer, slugger, weak, blind, diceCharacters } from '../../data/batter-options.js';
 
-class PlayerGenerator {
-  constructor() {
-    console.log('Player Generator initialized');
-    this.first = [];
-    this.last = [];
+const PlayerGenerator = {
+  first: [],
+  last: [],
+  firstLength: firstNames.length,
+  lastLength: lastNames.length,
+  homer: homer,
+  slugger: slugger,
+  average: average,
+  weak: weak,
+  blind: blind,
 
-    this.firstLength = namingData.first.length;
-    this.lastLength = namingData.last.length;
-
-    this.homer = homer;
-    this.slugger = slugger;
-    this.average = average;
-    this.weak = weak;
-    this.blind = blind;
-  }
-
-  getIndex = name => {
-    let randomIndex = ~~(Math.random() * this[`${name}Length`]);
-    while (this[name].includes(randomIndex)) {
-      randomIndex = ~~(Math.random() * this[`${name}Length`]);
+  getIndex: name => {
+    let randomIndex = Utils.random(PlayerGenerator[`${name}Length`]);
+    while (PlayerGenerator[name].includes(randomIndex)) {
+      randomIndex = Utils.random(PlayerGenerator[`${name}Length`]);
     }
-    this[name].push(randomIndex);
+    PlayerGenerator[name].push(randomIndex);
 
     return randomIndex;
-  }
+  },
 
-  generateName = () => {
-    return `${namingData.first[this.getIndex('first')]} ${namingData.last[this.getIndex('last')]}`;
-  }
-  
-  getBatterType = () => {
-    const random = ~~(Math.random() * 13);
+  generateName: () => {
+    return `${firstNames[PlayerGenerator.getIndex('first')]} ${lastNames[PlayerGenerator.getIndex('last')]}`;
+  },
+
+  getBatterType: () => {
+    let random = Utils.random(13);
     let batterType = 'average';
 
     if (random >= 11) {
@@ -46,18 +43,18 @@ class PlayerGenerator {
     }
 
     return batterType;
-  }
+  },
 
-  generateStats = name => {
-    const stats = {};
-    const max = this[name].length;
+  generateStats: name => {
+    let stats = {};
+    let max = PlayerGenerator[name].length;
     let firstDie = 1;
     let secondDie = 1;
 
     for (let i = 0; i < max; i++) {
       stats[`${firstDie}:${secondDie}`] = Object.assign({
         dice: `${diceCharacters[firstDie]}${diceCharacters[secondDie]}`
-      }, this[name][i]);
+      }, PlayerGenerator[name][i]);
 
       if (secondDie === 6) {
         firstDie++;
@@ -68,17 +65,17 @@ class PlayerGenerator {
     }
 
     return stats;
-  }
+  },
 
-  generatePlayer = () => {
-    const batterType = this.getBatterType();
+  generatePlayer: () => {
+    let batterType = PlayerGenerator.getBatterType();
 
     return {
-      name: this.generateName(),
-      stats: this.generateStats(batterType),
+      name: PlayerGenerator.generateName(),
+      stats: PlayerGenerator.generateStats(batterType),
       batterType
     }
-  }
-}
+  },
+};
 
-export default new PlayerGenerator();
+export default PlayerGenerator;

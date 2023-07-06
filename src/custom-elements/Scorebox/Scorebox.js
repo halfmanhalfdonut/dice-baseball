@@ -14,11 +14,6 @@ class Scorebox extends HTMLElement {
     let firstLetter = city.charAt(0);
     let secondLetter = nickname[0].charAt(0);
 
-    if (nickname.length > 1) {
-      firstLetter = nickname[0].charAt(0);
-      secondLetter = nickname[1].charAt(0);
-    }
-
     return `<div class="team-logo">
       <span class="team-logo-first" style="color: ${colors.primary}">${firstLetter}</span>
       <span class="team-logo-second" style="color: ${colors.secondary}">${secondLetter}</span>
@@ -45,7 +40,7 @@ class Scorebox extends HTMLElement {
     return html += `<td>${this[team].runs}</td><td>${this[team].hits}</td></tr>`;
   }
 
-  updateScoreboard = ({ detail}) => {
+  updateScoreboard = ({ detail }) => {
     const { currentInning, battingTeam, innings, home, visitor } = detail;
 
     this.home = home;
