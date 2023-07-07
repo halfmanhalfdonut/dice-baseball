@@ -1,3 +1,5 @@
+import Utils from '../../services/Utils/Utils.js';
+
 class Controls extends HTMLElement {
   constructor() {
     super();
@@ -24,8 +26,8 @@ class Controls extends HTMLElement {
 
     const lowValue = 1;
     const highValue = 6;
-    const one = ~~(Math.random() * highValue) + lowValue;
-    const two = ~~(Math.random() * highValue) + lowValue;
+    const one = Utils.random(highValue) + lowValue;
+    const two = Utils.random(highValue) + lowValue;
 
     this.tray.innerHTML = `${this.diceMapping[one]} ${this.diceMapping[two]}`;
 
@@ -73,7 +75,7 @@ class Controls extends HTMLElement {
       this.simulationInterval = setInterval(() => {
         this.rollDice();
       }, 750);
-      this.simulateButton.innerHTML = '🤖 &nbsp; Stop Auto-Roll';
+      this.simulateButton.innerHTML = 'Stop Auto-Roll';
       document.dispatchEvent(new CustomEvent('game:simulate', {
         detail: {
           isSimulating: true
@@ -87,8 +89,8 @@ class Controls extends HTMLElement {
     this.isSimulating = false;
     this.innerHTML = `<div class="game-over">GAME<br>OVER</div>`;
     const button = document.createElement('button');
-    button.setAttribute('class', 'pitch');
-    button.innerHTML = '⚾ &nbsp; New Game';
+    button.setAttribute('class', 'button pitch');
+    button.innerHTML = 'New Game';
     button.addEventListener('pointerup', this.handleNewGame);
     this.newGameButton = button;
 
@@ -103,13 +105,13 @@ class Controls extends HTMLElement {
 
     const button = document.createElement('button');
     button.setAttribute('class', 'button pitch');
-    button.innerHTML = '⚾ &nbsp; Batter up!';
+    button.innerHTML = 'Batter up';
     button.addEventListener('pointerup', this.handleRoll);
     this.button = button;
 
     const simulateButton = document.createElement('button');
     simulateButton.setAttribute('class', 'button simulate');
-    simulateButton.innerHTML = '🤖 &nbsp; Auto-Roll';
+    simulateButton.innerHTML = 'Auto-Roll';
     simulateButton.addEventListener('pointerup', this.handleSimulate);
     this.simulateButton = simulateButton;
 
