@@ -1,4 +1,4 @@
-import Utils from '../Utils/Utils.js';
+import { random } from '../Utils/Utils.js';
 import firstNames from '../../data/first-names.js';
 import lastNames from '../../data/last-names.js';
 import { average, homer, slugger, weak, blind, diceCharacters } from '../../data/batter-options.js';
@@ -15,9 +15,9 @@ const PlayerGenerator = {
   blind: blind,
 
   getIndex: name => {
-    let randomIndex = Utils.random(PlayerGenerator[`${name}Length`]);
+    let randomIndex = random(PlayerGenerator[`${name}Length`]);
     while (PlayerGenerator[name].includes(randomIndex)) {
-      randomIndex = Utils.random(PlayerGenerator[`${name}Length`]);
+      randomIndex = random(PlayerGenerator[`${name}Length`]);
     }
     PlayerGenerator[name].push(randomIndex);
 
@@ -29,7 +29,7 @@ const PlayerGenerator = {
   },
 
   getBatterType: () => {
-    let random = Utils.random(13);
+    let random = random(13);
     let batterType = 'average';
 
     if (random >= 11) {

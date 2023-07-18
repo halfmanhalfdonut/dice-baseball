@@ -1,6 +1,7 @@
 html {
   --primary: #f3f3f3;
   --secondary: #222222;
+  --tertiary: #666;
   --highlight: goldenrod;
 }
 
@@ -8,13 +9,14 @@ html {
   html {
     --primary: #222222;
     --secondary: #f3f3f3;
+    --tertiary: #CCC;
   }
 }
 
 html, body {
   margin: 0;
   padding: 0;
-  font-family: Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Futura, 'Franklin Gothic', Helvetica, Arial, sans-serif;
 }
 
 db-bases,
@@ -22,7 +24,7 @@ db-batter,
 db-controls,
 db-game,
 db-outs,
-db-scorebox {
+db-summary {
   display: block;
 }
 
@@ -49,44 +51,6 @@ db-game {
   color: var(--secondary);
   margin: 5px auto 0;
   padding: 10px;
-}
-
-.scorebox {
-  margin: 0 auto;
-  text-align: center;
-}
-
-.scoreboard {
-  box-sizing: border-box;
-  width: 100%;
-  text-align: center;
-}
-
-.low-opacity {
-  opacity: 0.2;
-}
-
-.team-logo {
-  display: inline-block;
-  position: relative;
-  font-size: 18px;
-  font-weight: bold;
-  font-family: monospace;
-  margin-right: 5px;
-}
-
-.team-logo-second {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-}
-
-.current-inning {
-  color: var(--highlight);
-}
-
-.outs {
-  line-height: 1em;
 }
 
 .team-name {

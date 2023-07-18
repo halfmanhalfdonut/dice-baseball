@@ -10,7 +10,8 @@ class Game extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
       <section class="game">
-        <db-scorebox></db-scorebox>
+        <db-score></db-score>
+        <db-scoreboard></db-scoreboard>
         <db-batter class="box"></db-batter>
         <section class="field-controls box">
           <db-field></db-field>

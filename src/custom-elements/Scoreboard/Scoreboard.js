@@ -1,27 +1,36 @@
-class Scorebox extends HTMLElement {
+import { addStyles } from '../../services/Utils/Utils.js';
+
+class Scoreboard extends HTMLElement {
   constructor() {
     super();
+
+    let styles = `
+    .scoreboard {
+      margin: 0 auto;
+      text-align: center;
+      font-size: 0.8em;
+    }
+
+    .scoreboard-table {
+      box-sizing: border-box;
+      width: 100%;
+      text-align: center;
+    }
+
+    .current-inning {
+      color: var(--highlight);
+    }
+    `;
+    
+    addStyles(styles, 'db-scoreboard');
   }
 
   removeEventListeners = () => {
     document.removeEventListener('scoreboard:update', this.updateScoreboard);
-    document.removeEventListener('outs:update', this.updateOuts);
-  }
-
-  getTeamLogo = team => {
-    const { name, colors } = team;
-    const [ city, ...nickname ] = name.split(' ');
-    let firstLetter = city.charAt(0);
-    let secondLetter = nickname[0].charAt(0);
-
-    return `<div class="team-logo">
-      <span class="team-logo-first" style="color: ${colors.primary}">${firstLetter}</span>
-      <span class="team-logo-second" style="color: ${colors.secondary}">${secondLetter}</span>
-    </div>`;
   }
 
   getTeamRow = ({ team, totalInnings, currentInning, innings, battingTeam }) => {
-    let html = `<tr><td class="team-name">${this.getTeamLogo(this[team].team)} ${this[team].team.name}</td>`;
+    let html = `<tr><td class="team-name">${this[team].team.name.split(' ').at(-1)}</td>`;
     
     for (let i = 0; i < totalInnings; i++) {
       const cssClass = (team === battingTeam && currentInning === i) ? 'current-inning' : '';
@@ -47,7 +56,7 @@ class Scorebox extends HTMLElement {
     this.visitor = visitor;
     const totalInnings = Math.max(innings.length, 9);
 
-    let tableHtml = `<table class="scoreboard"><thead><tr><th>&nbsp;</th>`;
+    let tableHtml = `<table class="scoreboard-table"><thead><tr><th>&nbsp;</th>`;
 
     for (let i = 0; i < totalInnings; i++) {
       tableHtml += `<th>${i + 1}</th>`;
@@ -75,41 +84,21 @@ class Scorebox extends HTMLElement {
     this.scoreboard.innerHTML = tableHtml;
   }
 
-  updateOuts = ({ detail }) => {
-    const { outs } = detail;
-
-    if (outs === 0) {
-      this.outs.innerHTML = `Outs: <span class="low-opacity">⚾</span>&nbsp;<span class="low-opacity">⚾</span>`;
-    } else if (outs === 1) {
-      this.outs.innerHTML = `Outs: ⚾&nbsp;<span class="low-opacity">⚾</span>`;
-    } else if (outs === 2) {
-      this.outs.innerHTML = `Outs: ⚾&nbsp;⚾`;
-    }
-  }
-
   connectedCallback() {
     this.removeEventListeners();
 
     const wrapper = document.createElement('section');
-    wrapper.setAttribute('class', 'scorebox box');
+    wrapper.setAttribute('class', 'scoreboard box');
     this.wrapper = wrapper;
 
     const scoreboard = document.createElement('section');
     scoreboard.setAttribute('class', 'scoreboard-wrapper');
     this.scoreboard = scoreboard;
 
-    const outs = document.createElement('section');
-    outs.setAttribute('class', 'outs');
-    outs.innerHTML = `Outs: <span class="low-opacity">⚾</span><span class="low-opacity">⚾</span>`;
-    this.outs = outs;
-
     this.wrapper.appendChild(this.scoreboard);
-    this.wrapper.appendChild(this.outs);
-
     this.appendChild(wrapper);
 
     document.addEventListener('scoreboard:update', this.updateScoreboard);
-    document.addEventListener('outs:update', this.updateOuts);
   }
 
   disconnectedCallback() {
@@ -117,4 +106,4 @@ class Scorebox extends HTMLElement {
   }
 }
 
-export const scorebox = () => customElements.define('db-scorebox', Scorebox);
+export const scoreboard = () => customElements.define('db-scoreboard', Scoreboard);

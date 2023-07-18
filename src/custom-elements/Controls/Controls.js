@@ -1,4 +1,4 @@
-import Utils from '../../services/Utils/Utils.js';
+import { random } from '../../services/Utils/Utils.js';
 
 class Controls extends HTMLElement {
   constructor() {
@@ -26,8 +26,8 @@ class Controls extends HTMLElement {
 
     const lowValue = 1;
     const highValue = 6;
-    const one = Utils.random(highValue) + lowValue;
-    const two = Utils.random(highValue) + lowValue;
+    const one = random(highValue) + lowValue;
+    const two = random(highValue) + lowValue;
 
     this.tray.innerHTML = `${this.diceMapping[one]} ${this.diceMapping[two]}`;
 
