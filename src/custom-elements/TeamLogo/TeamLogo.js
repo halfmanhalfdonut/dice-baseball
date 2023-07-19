@@ -4,8 +4,8 @@ class TeamLogo extends HTMLElement {
   static get observedAttributes() {
     return [
       'name',
-      'primaryColor',
-      'secondaryColor',
+      'primary',
+      'secondary',
     ];
   }
 
@@ -55,8 +55,8 @@ class TeamLogo extends HTMLElement {
 
   updateUI() {
     let name = this.getAttribute('name') ?? 'No Team';
-    let primaryColor = this.getAttribute('primaryColor') ?? '#123456';
-    let secondaryColor = this.getAttribute('secondaryColor') ?? '#654321';
+    let primaryColor = this.getAttribute('primary') ?? '#123456';
+    let secondaryColor = this.getAttribute('secondary') ?? '#654321';
     
     const [ city, ...nickname ] = name.split(' ');
     let firstLetter = city.charAt(0);

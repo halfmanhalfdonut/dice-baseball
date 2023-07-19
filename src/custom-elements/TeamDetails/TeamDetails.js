@@ -73,8 +73,8 @@ class TeamDetails extends HTMLElement {
 
   updateUI = () => {
     this.teamLogo.setAttribute('name', this.visibleTeam?.name);
-    this.teamLogo.setAttribute('primaryColor', this.visibleTeam?.colors.primary);
-    this.teamLogo.setAttribute('secondaryColor', this.visibleTeam?.colors.secondary);
+    this.teamLogo.setAttribute('primary', this.visibleTeam?.colors.primary);
+    this.teamLogo.setAttribute('secondary', this.visibleTeam?.colors.secondary);
 
     // update record when that's ready..
   }
