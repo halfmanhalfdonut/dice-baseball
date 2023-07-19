@@ -58,8 +58,9 @@ class Controls extends HTMLElement {
       }));
     } else {
       this.isSimulating = true;
-      this.rollDice();
-      
+      this.simulationInterval = setInterval(() => {
+        this.rollDice();
+      }, 750);
       this.simulateButton.innerHTML = 'Stop Auto-Roll';
       document.dispatchEvent(new CustomEvent('game:simulate', {
         detail: {
