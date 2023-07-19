@@ -49,11 +49,7 @@ class Field extends HTMLElement {
     this.wrapper = document.createElement('section');
     this.wrapper.setAttribute('class', 'field');
 
-    let html = '';
-    for (let i = 0; i < 3; i++) {
-      html += '<span class="base">◆</span>'
-    }
-    this.wrapper.innerHTML = html;
+    this.wrapper.innerHTML = '<span class="base">◆</span>'.repeat(3);
 
     this.appendChild(this.wrapper);
 
