@@ -8,7 +8,6 @@ const addStyles = (styles, from) => {
   element.textContent = styles;
 
   if (!headTag) {
-    console.log('Setting head tag');
     headTag = document.getElementsByTagName('head')[0];
   }
 

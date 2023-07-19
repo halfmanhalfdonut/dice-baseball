@@ -102,7 +102,6 @@ class Batter extends HTMLElement {
   }
 
   disconnectedCallback() {
-    console.log('Removing event listeners');
     this.removeEventListeners();
   }
 }

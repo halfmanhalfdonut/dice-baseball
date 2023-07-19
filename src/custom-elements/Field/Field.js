@@ -78,7 +78,6 @@ class Field extends HTMLElement {
   }
 
   updateUI = bases => {
-    console.log('Updating bases', bases);
     this.wrapper.setAttribute('data-first', bases[0] ? 'runner' : 'false');
     this.wrapper.setAttribute('data-second', bases[1] ? 'runner' : 'false');
     this.wrapper.setAttribute('data-third', bases[2] ? 'runner' : 'false');

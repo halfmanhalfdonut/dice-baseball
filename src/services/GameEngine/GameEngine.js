@@ -80,7 +80,6 @@ const GameEngine = {
   },
 
   dispatchTeams: () => {
-    console.log('Dispatching teams');
     document.dispatchEvent(new CustomEvent('teams:update', {
       detail: {
         home: GameEngine.state.home,
