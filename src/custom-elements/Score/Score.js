@@ -58,7 +58,7 @@ class Score extends HTMLElement {
     this.removeEventListeners();
 
     this.wrapper = document.createElement('section');
-    this.wrapper.setAttribute('class', 'score-wrapper box');
+    this.wrapper.setAttribute('class', 'score-wrapper');
 
     this.visitorDetails = document.createElement('db-team-details');
     this.visitorDetails.setAttribute('team', 'visitor');

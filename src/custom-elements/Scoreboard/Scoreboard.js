@@ -88,7 +88,7 @@ class Scoreboard extends HTMLElement {
     this.removeEventListeners();
 
     const wrapper = document.createElement('section');
-    wrapper.setAttribute('class', 'scoreboard box');
+    wrapper.setAttribute('class', 'scoreboard');
     this.wrapper = wrapper;
 
     const scoreboard = document.createElement('section');
