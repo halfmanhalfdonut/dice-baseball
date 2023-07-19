@@ -1,4 +1,4 @@
-let headTag;
+let headTag; // cache the head tag element for later appends
 
 const random = max => ~~(Math.random() * max); // ~~ effectively does the same as Math.floor but more efficiently
 

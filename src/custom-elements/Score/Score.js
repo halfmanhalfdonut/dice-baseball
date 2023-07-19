@@ -98,10 +98,6 @@ class Score extends HTMLElement {
     document.addEventListener('scoreboard:update', this.updateScoreboard);
   }
 
-  getIsLeading = (a, b) => {
-    return a > b ? 'data-leading="true"' : '';
-  }
-
   updateUI = (inning, visitor, home) => {
     this.visitorScore.setAttribute('class', `score-digits`);
     this.visitorScore.textContent = visitor.runs;

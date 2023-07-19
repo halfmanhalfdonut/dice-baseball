@@ -40,7 +40,7 @@ class Outs extends HTMLElement {
     this.wrapper = document.createElement('section');
     this.wrapper.setAttribute('class', 'outs');
     this.wrapper.setAttribute('data-outs', 0);
-    this.wrapper.innerHTML = `<span class="ball ball-outs">⏺</span><span class="ball ball-outs">⏺</span>`;
+    this.wrapper.innerHTML = '<span class="ball ball-outs">⏺</span>'.repeat(2);
 
     this.appendChild(this.wrapper);
 
