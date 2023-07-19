@@ -1,5 +1,5 @@
 import TeamGenerator from '../TeamGenerator/TeamGenerator.js';
-import { random } from '../Utils/Utils.js';
+import * as Utils from '../Utils/Utils.js';
 
 const GameEngine = {
   VERSION: '2.1',
@@ -68,11 +68,11 @@ const GameEngine = {
 
   setTeams: () => {
     let teams = JSON.parse(localStorage.getItem('teams'));
-    let visitorIndex = random(teams.length);
+    let visitorIndex = Utils.random(teams.length);
     let homeIndex = visitorIndex;
 
     while (homeIndex === visitorIndex) {
-      homeIndex = random(teams.length);
+      homeIndex = Utils.random(teams.length);
     }
 
     GameEngine.state.visitor.team = teams[visitorIndex];
@@ -221,7 +221,7 @@ const GameEngine = {
           return runners;
         }, []);
 
-        let removeIndex = currentBaserunners.length > 1 ? random(currentBaserunners.length) : 0;
+        let removeIndex = currentBaserunners.length > 1 ? Utils.random(currentBaserunners.length) : 0;
         GameEngine.state.inningTally.bases[removeIndex] = ''; // this guy is out
       }
     }

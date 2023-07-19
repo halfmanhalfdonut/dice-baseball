@@ -2,7 +2,7 @@ import nouns from '../../data/nouns.js';
 import adjectives from '../../data/adjectives.js';
 import towns from '../../data/towns.js';
 import PlayerGenerator from '../PlayerGenerator/PlayerGenerator.js';
-import { random } from '../Utils/Utils.js';
+import * as Utils from '../Utils/Utils.js';
 
 const TeamGenerator = {
   ROSTER_SIZE: 26,
@@ -19,7 +19,7 @@ const TeamGenerator = {
   
     let hex = '#';
     for (let i = 0; i < 6; i++) {
-      hex += chars[random(16)];
+      hex += chars[Utils.random(16)];
     }
   
     return hex;
@@ -33,9 +33,9 @@ const TeamGenerator = {
   },
 
   getIndex: source => {
-    let randomIndex = random(TeamGenerator[`${source}Length`]);
+    let randomIndex = Utils.random(TeamGenerator[`${source}Length`]);
     while (TeamGenerator[source].includes(randomIndex)) {
-      randomIndex = random(TeamGenerator[`${source}Length`]);
+      randomIndex = Utils.random(TeamGenerator[`${source}Length`]);
     }
     TeamGenerator[source].push(randomIndex);
 
@@ -46,7 +46,7 @@ const TeamGenerator = {
     let name = `${towns[TeamGenerator.getIndex('towns')]} `;
 
     // Sometimes add an adjective
-    if (random(18) < 1) {
+    if (Utils.random(18) < 1) {
       name += `${adjectives[TeamGenerator.getIndex('adjectives')]} `;
     }
 
