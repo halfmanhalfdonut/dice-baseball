@@ -8,7 +8,7 @@ class TeamDetails extends HTMLElement {
     db-team-details {
       display: grid;
     }
-    
+
     .score-team-details {
       display: grid;
       grid-template-columns: 1fr;
@@ -68,7 +68,6 @@ class TeamDetails extends HTMLElement {
     const { home, visitor } = detail;
     
     this.visibleTeam = this.isHome ? home.team : visitor.team;
-    console.log('Teams update', this.isHome, this.visibleTeam);
     this.updateUI();
   }
 

@@ -14,30 +14,30 @@ class TeamLogo extends HTMLElement {
 
     let styles = `
     .team-logo {
-      display: block;
-      position: relative;
+      display: grid;
+      grid-template-columns: repeat(6, 6px);
+      grid-template-rows: 10px;
       font-size: 36px;
       font-weight: bold;
       font-family: monospace;
       margin: 2px;
       left: -5px;
     }
+
+    .team-logo-first {
+      grid-column: 1 / 4;
+    }
     
     .team-logo-second {
-      position: absolute;
-      top: 10px;
-      left: 22px;
+      grid-column: 2 / 7;
     }
 
     @media screen and (min-width: 1024px) {
       .team-logo {
+        grid-template-columns: repeat(6, 8px);
+        grid-template-rows: 16px;
         font-size: 48px;
         margin: 5px;
-      }
-      
-      .team-logo-second {
-        top: 12px;
-        left: 17px;
       }
     }
     `;
