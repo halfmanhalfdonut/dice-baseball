@@ -4,7 +4,7 @@ const random = max => ~~(Math.random() * max); // ~~ effectively does the same a
 
 const addStyles = (styles, from) => {
   const element = document.createElement('style');
-  element.setAttribute('data-from', `from-${from}`);
+  element.setAttribute('data-from', from);
   element.textContent = styles;
 
   if (!headTag) {
