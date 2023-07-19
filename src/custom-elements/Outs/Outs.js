@@ -35,6 +35,7 @@ class Outs extends HTMLElement {
   }
 
   connectedCallback() {
+    console.log('Connected Outs');
     this.removeEventListeners();
 
     this.wrapper = document.createElement('section');

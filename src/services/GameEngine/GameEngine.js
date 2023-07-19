@@ -56,6 +56,7 @@ const GameEngine = {
 
     GameEngine.setTeams();
     GameEngine.resetInningTally();
+    GameEngine.dispatchTeams();
     GameEngine.dispatchScoreboard();
     GameEngine.dispatchOuts();
     GameEngine.dispatchBatter();
@@ -76,6 +77,16 @@ const GameEngine = {
 
     GameEngine.state.visitor.team = teams[visitorIndex];
     GameEngine.state.home.team = teams[homeIndex];
+  },
+
+  dispatchTeams: () => {
+    console.log('Dispatching teams');
+    document.dispatchEvent(new CustomEvent('teams:update', {
+      detail: {
+        home: GameEngine.state.home,
+        visitor: GameEngine.state.visitor,
+      }
+    }));
   },
 
   dispatchScoreboard: () => {

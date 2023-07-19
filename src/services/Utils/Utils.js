@@ -15,11 +15,4 @@ const addStyles = (styles, from) => {
   headTag.appendChild(element);
 }
 
-const numberToOrdinal = n => {
-  let ordinal = String(n);
-  let suffixes = [, 'st', 'nd', 'rd' ];
-
-  return ordinal + (suffixes[ordinal.match('1?.$')] || 'th');
-}
-
-export { addStyles, numberToOrdinal, random };
+export { addStyles, random };

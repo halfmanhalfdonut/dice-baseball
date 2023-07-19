@@ -5,4 +5,5 @@ export * from './Game/Game.js';
 export * from './Outs/Outs.js';
 export * from './Score/Score.js';
 export * from './Scoreboard/Scoreboard.js';
+export * from './TeamDetails/TeamDetails.js';
 export * from './TeamLogo/TeamLogo.js';

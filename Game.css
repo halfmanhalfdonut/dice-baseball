@@ -22,9 +22,11 @@ html, body {
 db-bases,
 db-batter,
 db-controls,
+db-field,
 db-game,
 db-outs,
-db-summary {
+db-score,
+db-scoreboard {
   display: block;
 }
 
@@ -99,31 +101,8 @@ db-game {
   display: flex;
 }
 
-db-field,
-db-controls {
-  width: 50%;
-}
-
-.field {
-  font-size: 3em;
-}
-
-.base {
-  position: relative;
-  bottom: -40px;
-}
-
-.second-base {
-  position: relative;
-  bottom: 0;
-}
-
-.baserunner {
-  color: var(--highlight);
-}
-
 .tray, .game-over {
-  font-size: 3em;
+  font-size: 5em;
   line-height: 1em;
   margin: 2px auto;
   padding: 0 25px 25px;
@@ -166,26 +145,12 @@ db-controls {
     font-size: 1.1em;
   }
 
-  .field {
-    font-size: 5em;
-  }
-
   .tray {
     font-size: 5em;
   }
 
   .game-over {
     font-size: 3.5em;
-  }
-
-  .base {
-    position: relative;
-    bottom: -50px;
-  }
-  
-  .second-base {
-    position: relative;
-    bottom: 10px;
   }
 }
 

@@ -1,4 +1,4 @@
-import { addStyles, numberToOrdinal } from '../../services/Utils/Utils.js';
+import { addStyles } from '../../services/Utils/Utils.js';
 
 class Score extends HTMLElement {
   constructor() {
@@ -12,19 +12,6 @@ class Score extends HTMLElement {
       margin: 5px auto;
       padding: 5px;
       box-sizing: border-box;
-      background: var(--primary);
-
-      .score-team-details {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 10%;
-        align-items: center;
-
-        .score-team-record {
-          font-size: 0.5em;
-          color: var(--tertiary);
-        }
-      }
 
       .score-digits {
         font-size: 5em;
@@ -39,7 +26,7 @@ class Score extends HTMLElement {
       .score-innings-outs {
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 30% 1fr;
+        grid-template-rows: 30% 1fr 1fr;
         align-items: start;
 
         .score-inning {
@@ -53,13 +40,6 @@ class Score extends HTMLElement {
       .score-wrapper {
         grid-template-columns: 10% 30% 20% 30% 10%;
         padding: 10px;
-
-        .score-team-details {
-          display: grid;
-          grid-template-columns: 1fr;
-          grid-template-rows: 1fr 10%;
-          align-items: center;
-        }
 
         .score-innings-outs {
         }
@@ -78,7 +58,40 @@ class Score extends HTMLElement {
     this.removeEventListeners();
 
     this.wrapper = document.createElement('section');
-    this.wrapper.setAttribute('class', 'score-wrapper');
+    this.wrapper.setAttribute('class', 'score-wrapper box');
+
+    this.visitorDetails = document.createElement('db-team-details');
+    this.visitorDetails.setAttribute('team', 'visitor');
+
+    this.visitorScore = document.createElement('section');
+    this.visitorScore.setAttribute('class', 'score-digits');
+    this.visitorScore.setAttribute('data-leading', 'false');
+    this.visitorScore.textContent = '0';
+
+    this.statusWrapper = document.createElement('section');
+    this.statusWrapper.setAttribute('class', 'score-innings-outs');
+
+    this.statusInning = document.createElement('div');
+    this.statusInning.setAttribute('class', 'score-inning');
+    this.statusInning.textContent = 'PRE';
+
+    this.statusWrapper.appendChild(this.statusInning);
+    this.statusWrapper.appendChild(document.createElement('db-outs'));
+    this.statusWrapper.appendChild(document.createElement('db-field'));
+
+    this.homeScore = document.createElement('section');
+    this.homeScore.setAttribute('class', 'score-digits');
+    this.homeScore.setAttribute('data-leading', 'false');
+    this.homeScore.textContent = '0';
+
+    this.homeDetails = document.createElement('db-team-details');
+    this.homeDetails.setAttribute('team', 'home');
+
+    this.wrapper.appendChild(this.visitorDetails);
+    this.wrapper.appendChild(this.visitorScore);
+    this.wrapper.appendChild(this.statusWrapper);
+    this.wrapper.appendChild(this.homeScore);
+    this.wrapper.appendChild(this.homeDetails);
 
     this.appendChild(this.wrapper);
 
@@ -90,25 +103,24 @@ class Score extends HTMLElement {
   }
 
   updateUI = (inning, visitor, home) => {
+    this.visitorScore.setAttribute('class', `score-digits`);
+    this.visitorScore.textContent = visitor.runs;
 
-    let html = `
-      <section class="score-team-details score-team-visitor">
-        <db-team-logo name="${visitor.team.name}" primaryColor="${visitor.team.colors.primary}" secondaryColor="${visitor.team.colors.secondary}"></db-team-logo>
-        <div class="score-team-record">0-0</div>
-      </section>
-      <section class="score-digits" ${this.getIsLeading(visitor.runs, home.runs)}>${visitor.runs}</section>
-      <section class="score-innings-outs">
-        <div class="score-inning">${inning}</div>
-        <db-outs></db-outs>
-      </section>
-      <section class="score-digits" ${this.getIsLeading(home.runs, visitor.runs)}>${home.runs}</section>
-      <section class="score-team-details score-team-home">
-        <db-team-logo name="${home.team.name}" primaryColor="${home.team.colors.primary}" secondaryColor="${home.team.colors.secondary}"></db-team-logo>
-        <div class="score-team-record">0-0</div>
-      </section>
-    `;
+    this.statusInning.textContent = inning;
 
-    this.wrapper.innerHTML = html;
+    this.homeScore.setAttribute('class', `score-digits`);
+    this.homeScore.textContent = home.runs;
+
+    if (visitor.runs > home.runs) {
+      this.visitorScore.setAttribute('data-leading', 'true');
+      this.homeScore.setAttribute('data-leading', 'false');
+    } else if (home.runs > visitor.runs) {
+      this.homeScore.setAttribute('data-leading', 'true');
+      this.visitorScore.setAttribute('data-leading', 'false');
+    } else {
+      this.homeScore.setAttribute('data-leading', 'false');
+      this.visitorScore.setAttribute('data-leading', 'false');
+    }
   }
 
   updateScoreboard = ({ detail }) => {

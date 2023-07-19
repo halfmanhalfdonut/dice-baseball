@@ -1,6 +1,14 @@
 import { addStyles } from '../../services/Utils/Utils.js';
 
 class TeamLogo extends HTMLElement {
+  static get observedAttributes() {
+    return [
+      'name',
+      'primaryColor',
+      'secondaryColor',
+    ];
+  }
+
   constructor() {
     super();
 
@@ -38,9 +46,17 @@ class TeamLogo extends HTMLElement {
   }
 
   connectedCallback() {
-    let name = this.getAttribute('name');
-    let primaryColor = this.getAttribute('primaryColor');
-    let secondaryColor = this.getAttribute('secondaryColor');
+    this.updateUI();
+  }
+
+  attributeChangedCallback() {
+    this.updateUI();
+  }
+
+  updateUI() {
+    let name = this.getAttribute('name') ?? 'No Team';
+    let primaryColor = this.getAttribute('primaryColor') ?? '#123456';
+    let secondaryColor = this.getAttribute('secondaryColor') ?? '#654321';
     
     const [ city, ...nickname ] = name.split(' ');
     let firstLetter = city.charAt(0);

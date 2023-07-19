@@ -13,10 +13,7 @@ class Game extends HTMLElement {
         <db-score></db-score>
         <db-scoreboard></db-scoreboard>
         <db-batter class="box"></db-batter>
-        <section class="field-controls box">
-          <db-field></db-field>
-          <db-controls></db-controls>
-        </section>
+        <db-controls></db-controls>
       </section>
     `;
   }
