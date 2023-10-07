@@ -1,3 +1,5 @@
+import Conference from './Conference.js';
+import Season from './Season.js';
 import WithUUID from './WithUUID.js';
 
 class League extends WithUUID {
@@ -5,20 +7,26 @@ class League extends WithUUID {
     super();
     
     this.name = name;
-    this.seasons = [];
+    this.conferences = [
+      new Conference('American League'),
+      new Conference('National League'),
+    ];
+    this.seasons = [
+      new Season(1),
+    ];
     this.managers = [];
     this.playerHistories = [];
   }
 
-  getSeason = id => {
+  getSeason(id) {
     return this.seasons.filter(season => season.id === id);
   }
 
-  getManager = id => {
+  getManager(id) {
     return this.managers.filter(manager => manager.id === id);
   }
 
-  getPlayerHistory = id => {
+  getPlayerHistory(id) {
     return this.playerHistories.filter(history => history.id === id);
   }
 }

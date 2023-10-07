@@ -5,9 +5,13 @@ class Season extends WithUUID {
     super();
 
     this.year = year; // 1-based "year" of a season
-    this.schedule;
-    this.playoff;
+    this.schedule = [];
+    this.playoff = [];
     this.champion;
+  }
+
+  generateSchedule() {
+    // TODO generate schedule for a season
   }
 }
 

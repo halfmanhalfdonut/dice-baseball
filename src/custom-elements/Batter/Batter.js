@@ -1,4 +1,3 @@
-import League from '../../models/League.js';
 import { addStyles } from '../../services/Utils/Utils.js';
 
 class Batter extends HTMLElement {
@@ -67,9 +66,6 @@ class Batter extends HTMLElement {
     `;
 
     addStyles(styles, 'db-batter');
-
-    let l = new League(); // just trying this bad boy out
-    console.log(l.id);
 
     this.currentRoll;
     this.currentBatter;
