@@ -2,6 +2,7 @@ html {
   --primary: #f3f3f3;
   --secondary: #222222;
   --tertiary: #666;
+  --outline: #ffffff;
   --highlight: goldenrod;
 }
 
@@ -10,6 +11,7 @@ html {
     --primary: #222222;
     --secondary: #f3f3f3;
     --tertiary: #CCC;
+    --outline: #121212;
   }
 }
 
@@ -28,25 +30,6 @@ db-outs,
 db-score,
 db-scoreboard {
   display: block;
-}
-
-db-game {
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-  width: 100vw;
-  height: 100vh;
-  padding: 0;
-  /*background: repeating-linear-gradient(-45deg, #638653, #638653 20px, #718b4b 20px, #718b4b 40px);*/
-  background: #a0c526;
-  background: radial-gradient(circle, #a0c526 9%, #4a6717 100%);
-}
-
-.game {
-  margin: 0 auto;
-  width: 100vw;
-  box-sizing: border-box;
-  text-align: center;
 }
 
 .box {
@@ -77,20 +60,4 @@ db-game {
 .button:hover {
   background: var(--primary);
   color: var(--secondary);
-}
-
-@media screen and (min-width: 768px) {
-  db-game {
-    padding: 4px;
-  }
-
-  .game {
-    width: 75vw;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .game {
-    width: 55vw;
-  }
 }
