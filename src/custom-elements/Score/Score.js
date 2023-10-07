@@ -107,16 +107,8 @@ class Score extends HTMLElement {
     this.homeScore.setAttribute('class', `score-digits`);
     this.homeScore.textContent = home.runs;
 
-    if (visitor.runs > home.runs) {
-      this.visitorScore.setAttribute('data-leading', 'true');
-      this.homeScore.setAttribute('data-leading', 'false');
-    } else if (home.runs > visitor.runs) {
-      this.homeScore.setAttribute('data-leading', 'true');
-      this.visitorScore.setAttribute('data-leading', 'false');
-    } else {
-      this.homeScore.setAttribute('data-leading', 'false');
-      this.visitorScore.setAttribute('data-leading', 'false');
-    }
+    this.homeScore.setAttribute('data-leading', home.runs > visitor.runs);
+    this.visitorScore.setAttribute('data-leading', visitor.runs > home.runs);
   }
 
   updateScoreboard = ({ detail }) => {

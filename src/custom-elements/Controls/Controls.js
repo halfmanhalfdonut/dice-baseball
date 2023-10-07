@@ -4,6 +4,25 @@ class Controls extends HTMLElement {
   constructor() {
     super();
 
+    let styles = `
+    .tray {
+      font-size: 5em;
+      line-height: 1em;
+      margin: 2px auto;
+      padding: 0 25px 25px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    @media screen and (min-width: 768px) {
+      .tray {
+        font-size: 5em;
+      }
+    }
+    `;
+
+    Utils.addStyles(styles, 'db-controls');
+
     this.isRolling = false;
     this.isSimulating = false;
     this.simulationInterval;

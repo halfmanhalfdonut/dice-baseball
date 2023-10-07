@@ -12,6 +12,20 @@ const addStyles = (styles, from) => {
   }
 
   headTag.appendChild(element);
-}
+};
 
-export { addStyles, random };
+const idOptions = 'abcdef0123456789'.split('');
+const generateUUID = () => {
+  if (self.crypto?.randomUUID) {
+    return self.crypto.randomUUID();
+  } else {
+    let pseudoId = '';
+    for (let i = 0; i < 36; i++) {
+      pseudoId += idOptions[~~(Math.random() * idOptions.length)];
+    }
+
+    return pseudoId;
+  }
+};
+
+export { addStyles, generateUUID, random };

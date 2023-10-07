@@ -5,21 +5,26 @@ class Scoreboard extends HTMLElement {
     super();
 
     let styles = `
-    .scoreboard {
-      margin: 0 auto;
-      text-align: center;
-      font-size: 0.8em;
-    }
+      .team-name {
+        text-transform: capitalize;
+        text-align: left;
+      }
+      
+      .scoreboard {
+        margin: 0 auto;
+        text-align: center;
+        font-size: 0.8em;
+      }
 
-    .scoreboard-table {
-      box-sizing: border-box;
-      width: 100%;
-      text-align: center;
-    }
+      .scoreboard-table {
+        box-sizing: border-box;
+        width: 100%;
+        text-align: center;
+      }
 
-    .current-inning {
-      color: var(--highlight);
-    }
+      .current-inning {
+        color: var(--highlight);
+      }
     `;
     
     addStyles(styles, 'db-scoreboard');

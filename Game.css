@@ -59,65 +59,6 @@ db-game {
   }
 }
 
-.team-name {
-  text-transform: capitalize;
-  text-align: left;
-}
-
-.batter-details {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.75em;
-}
-
-.batter-name {
-  font-weight: bold;
-}
-
-.dice-columns {
-  display: flex;
-  box-sizing: border-box;
-}
-
-.dice-column {
-  width: 33%;
-}
-
-.dice-roll {
-  font-size: 0.7em;
-  text-align: left;
-  text-transform: uppercase;
-
-}
-
-.dice {
-  font-size: 1.5em;
-  line-height: 1em;
-  position: relative;
-  top: 1px;
-}
-
-.active-roll {
-  color: var(--highlight);
-}
-
-.field-controls {
-  display: flex;
-}
-
-.tray, .game-over {
-  font-size: 5em;
-  line-height: 1em;
-  margin: 2px auto;
-  padding: 0 25px 25px;
-  text-align: center;
-  box-sizing: border-box;
-}
-
-.game-over {
-  text-transform: uppercase;
-}
-
 .button {
   cursor: pointer;
   box-sizing: border-box;
@@ -143,18 +84,6 @@ db-game {
 
   .game {
     width: 75vw;
-  }
-
-  .dice-roll {
-    font-size: 1.1em;
-  }
-
-  .tray {
-    font-size: 5em;
-  }
-
-  .game-over {
-    font-size: 3.5em;
   }
 }
 
