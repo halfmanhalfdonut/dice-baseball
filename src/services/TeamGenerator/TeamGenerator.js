@@ -2,7 +2,7 @@ import nouns from '../../data/nouns.js';
 import adjectives from '../../data/adjectives.js';
 import towns from '../../data/towns.js';
 import PlayerGenerator from '../PlayerGenerator/PlayerGenerator.js';
-import Utils from '../Utils/Utils.js';
+import * as Utils from '../Utils/Utils.js';
 
 const TeamGenerator = {
   ROSTER_SIZE: 26,

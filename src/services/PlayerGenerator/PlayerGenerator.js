@@ -1,4 +1,4 @@
-import Utils from '../Utils/Utils.js';
+import * as Utils from '../Utils/Utils.js';
 import firstNames from '../../data/first-names.js';
 import lastNames from '../../data/last-names.js';
 import { average, homer, slugger, weak, blind, diceCharacters } from '../../data/batter-options.js';

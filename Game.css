@@ -1,6 +1,8 @@
 html {
   --primary: #f3f3f3;
   --secondary: #222222;
+  --tertiary: #666;
+  --outline: #ffffff;
   --highlight: goldenrod;
 }
 
@@ -8,39 +10,26 @@ html {
   html {
     --primary: #222222;
     --secondary: #f3f3f3;
+    --tertiary: #CCC;
+    --outline: #121212;
   }
 }
 
 html, body {
   margin: 0;
   padding: 0;
-  font-family: Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Futura, 'Franklin Gothic', Helvetica, Arial, sans-serif;
 }
 
 db-bases,
 db-batter,
 db-controls,
+db-field,
 db-game,
 db-outs,
-db-scorebox {
+db-score,
+db-scoreboard {
   display: block;
-}
-
-db-game {
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-  width: 100vw;
-  height: 100vh;
-  padding: 0;
-  background: repeating-linear-gradient(-45deg, #638653, #638653 20px, #718b4b 20px, #718b4b 40px);
-}
-
-.game {
-  margin: 0 auto;
-  width: 100vw;
-  box-sizing: border-box;
-  text-align: center;
 }
 
 .box {
@@ -49,126 +38,10 @@ db-game {
   color: var(--secondary);
   margin: 5px auto 0;
   padding: 10px;
-}
 
-.scorebox {
-  margin: 0 auto;
-  text-align: center;
-}
-
-.scoreboard {
-  box-sizing: border-box;
-  width: 100%;
-  text-align: center;
-}
-
-.low-opacity {
-  opacity: 0.2;
-}
-
-.team-logo {
-  display: inline-block;
-  position: relative;
-  font-size: 18px;
-  font-weight: bold;
-  font-family: monospace;
-  margin-right: 5px;
-}
-
-.team-logo-second {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-}
-
-.current-inning {
-  color: var(--highlight);
-}
-
-.outs {
-  line-height: 1em;
-}
-
-.team-name {
-  text-transform: capitalize;
-  text-align: left;
-}
-
-.batter-details {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.75em;
-}
-
-.batter-name {
-  font-weight: bold;
-}
-
-.dice-columns {
-  display: flex;
-  box-sizing: border-box;
-}
-
-.dice-column {
-  width: 33%;
-}
-
-.dice-roll {
-  font-size: 0.7em;
-  text-align: left;
-  text-transform: uppercase;
-
-}
-
-.dice {
-  font-size: 1.5em;
-  line-height: 1em;
-  position: relative;
-  top: 1px;
-}
-
-.active-roll {
-  color: var(--highlight);
-}
-
-.field-controls {
-  display: flex;
-}
-
-db-field,
-db-controls {
-  width: 50%;
-}
-
-.field {
-  font-size: 3em;
-}
-
-.base {
-  position: relative;
-  bottom: -40px;
-}
-
-.second-base {
-  position: relative;
-  bottom: 0;
-}
-
-.baserunner {
-  color: var(--highlight);
-}
-
-.tray, .game-over {
-  font-size: 3em;
-  line-height: 1em;
-  margin: 2px auto;
-  padding: 0 25px 25px;
-  text-align: center;
-  box-sizing: border-box;
-}
-
-.game-over {
-  text-transform: uppercase;
+  &:first-child {
+    margin-top: 0;
+  }
 }
 
 .button {
@@ -187,46 +60,4 @@ db-controls {
 .button:hover {
   background: var(--primary);
   color: var(--secondary);
-}
-
-@media screen and (min-width: 768px) {
-  db-game {
-    padding: 4px;
-  }
-
-  .game {
-    width: 75vw;
-  }
-
-  .dice-roll {
-    font-size: 1.1em;
-  }
-
-  .field {
-    font-size: 5em;
-  }
-
-  .tray {
-    font-size: 5em;
-  }
-
-  .game-over {
-    font-size: 3.5em;
-  }
-
-  .base {
-    position: relative;
-    bottom: -50px;
-  }
-  
-  .second-base {
-    position: relative;
-    bottom: 10px;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .game {
-    width: 55vw;
-  }
 }

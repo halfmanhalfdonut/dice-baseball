@@ -1,5 +1,5 @@
 import TeamGenerator from '../TeamGenerator/TeamGenerator.js';
-import Utils from '../Utils/Utils.js';
+import * as Utils from '../Utils/Utils.js';
 
 const GameEngine = {
   VERSION: '2.1',
@@ -56,6 +56,7 @@ const GameEngine = {
 
     GameEngine.setTeams();
     GameEngine.resetInningTally();
+    GameEngine.dispatchTeams();
     GameEngine.dispatchScoreboard();
     GameEngine.dispatchOuts();
     GameEngine.dispatchBatter();
@@ -76,6 +77,15 @@ const GameEngine = {
 
     GameEngine.state.visitor.team = teams[visitorIndex];
     GameEngine.state.home.team = teams[homeIndex];
+  },
+
+  dispatchTeams: () => {
+    document.dispatchEvent(new CustomEvent('teams:update', {
+      detail: {
+        home: GameEngine.state.home,
+        visitor: GameEngine.state.visitor,
+      }
+    }));
   },
 
   dispatchScoreboard: () => {

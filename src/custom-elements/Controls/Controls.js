@@ -1,16 +1,31 @@
-import Utils from '../../services/Utils/Utils.js';
+import * as Utils from '../../services/Utils/Utils.js';
 
 class Controls extends HTMLElement {
   constructor() {
     super();
 
-    this.SIMULATED_ROLLS = 1;
-    this.USER_ROLLS = 7;
-    this.numberOfRolls = this.USER_ROLLS;
+    let styles = `
+    .tray {
+      font-size: 5em;
+      line-height: 1em;
+      margin: 2px auto;
+      padding: 0 25px 25px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    @media screen and (min-width: 768px) {
+      .tray {
+        font-size: 5em;
+      }
+    }
+    `;
+
+    Utils.addStyles(styles, 'db-controls');
+
     this.isRolling = false;
     this.isSimulating = false;
     this.simulationInterval;
-    this.counter = 0;
     this.diceMapping = [ null, '⚀', '⚁', '⚂', '⚃', '⚄', '⚅', ];
   }
 
@@ -22,8 +37,6 @@ class Controls extends HTMLElement {
   }
 
   rollDice = () => {
-    this.counter++;
-
     const lowValue = 1;
     const highValue = 6;
     const one = Utils.random(highValue) + lowValue;
@@ -31,17 +44,13 @@ class Controls extends HTMLElement {
 
     this.tray.innerHTML = `${this.diceMapping[one]} ${this.diceMapping[two]}`;
 
-    if (this.counter === this.numberOfRolls) {
-      document.dispatchEvent(new CustomEvent('dice:roll', {
-        detail: {
-          roll: `${Math.min(one, two)}:${Math.max(one, two)}`
-        }
-      }));
+    document.dispatchEvent(new CustomEvent('dice:roll', {
+      detail: {
+        roll: `${Math.min(one, two)}:${Math.max(one, two)}`
+      }
+    }));
 
-      // reset counter
-      this.counter = 0;
-      this.isRolling = false;
-    }
+    this.isRolling = false;
   }
 
   handleNewGame = () => {
@@ -52,10 +61,7 @@ class Controls extends HTMLElement {
   handleRoll = () => {
     if (!this.isRolling && !this.isSimulating) {
       this.isRolling = true;
-      this.numberOfRolls = this.USER_ROLLS;
-      for (let i = 0; i < this.numberOfRolls; i++) {
-        setTimeout(this.rollDice, 250 * i);
-      }
+      this.rollDice();
     }
   }
 
@@ -71,7 +77,6 @@ class Controls extends HTMLElement {
       }));
     } else {
       this.isSimulating = true;
-      this.numberOfRolls = this.SIMULATED_ROLLS;
       this.simulationInterval = setInterval(() => {
         this.rollDice();
       }, 750);

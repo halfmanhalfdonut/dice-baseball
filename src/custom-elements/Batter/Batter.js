@@ -1,6 +1,75 @@
+import League from '../../models/League.js';
+import { addStyles } from '../../services/Utils/Utils.js';
+
 class Batter extends HTMLElement {
   constructor() {
     super();
+
+    let styles = `
+    .batter-details {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75em;
+    }
+    
+    .batter-name {
+      font-weight: bold;
+    }
+
+    .dice-columns {
+      display: flex;
+      box-sizing: border-box;
+    }
+    
+    .dice-column {
+      width: 33%;
+    }
+    
+    .dice-roll {
+      font-size: 0.7em;
+      text-align: left;
+      text-transform: uppercase;
+    }
+    
+    .dice {
+      font-size: 1.5em;
+      line-height: 1em;
+      position: relative;
+      top: 1px;
+    }
+    
+    .active-roll {
+      color: var(--highlight);
+    }
+
+    .game-over {
+      font-size: 5em;
+      line-height: 1em;
+      margin: 2px auto;
+      padding: 0 25px 25px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .game-over {
+      text-transform: uppercase;
+    }
+
+    @media screen and (min-width: 768px) {
+      .dice-roll {
+        font-size: 1.1em;
+      }
+      
+      .game-over {
+        font-size: 3.5em;
+      }
+    }
+    `;
+
+    addStyles(styles, 'db-batter');
+
+    let l = new League(); // just trying this bad boy out
+    console.log(l.id);
 
     this.currentRoll;
     this.currentBatter;
@@ -102,7 +171,6 @@ class Batter extends HTMLElement {
   }
 
   disconnectedCallback() {
-    console.log('Removing event listeners');
     this.removeEventListeners();
   }
 }
