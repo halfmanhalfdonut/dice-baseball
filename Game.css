@@ -37,7 +37,9 @@ db-game {
   width: 100vw;
   height: 100vh;
   padding: 0;
-  background: repeating-linear-gradient(-45deg, #638653, #638653 20px, #718b4b 20px, #718b4b 40px);
+  /*background: repeating-linear-gradient(-45deg, #638653, #638653 20px, #718b4b 20px, #718b4b 40px);*/
+  background: #a0c526;
+  background: radial-gradient(circle, #a0c526 9%, #4a6717 100%);
 }
 
 .game {
