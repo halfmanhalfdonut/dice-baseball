@@ -1,5 +1,6 @@
 import League from '../../models/League.js';
 import GameEngine from '../../services/GameEngine/GameEngine.js';
+import Persistence from '../../services/Persistence/Persistence.js';
 import { addStyles } from '../../services/Utils/Utils.js';
 
 class Game extends HTMLElement {
@@ -46,10 +47,15 @@ class Game extends HTMLElement {
 
     addStyles(styles, 'db-game');
 
-    let l = new League(); // just trying this bad boy out
-    localStorage.setItem('league', JSON.stringify(l));
+    this.createLeague();
     
     GameEngine.setup();
+  }
+
+  async createLeague() {
+    let l = new League('Magic Wonk League'); // just trying this bad boy out
+    localStorage.setItem('league', JSON.stringify(l));
+    console.log(l);
   }
 
   connectedCallback() {

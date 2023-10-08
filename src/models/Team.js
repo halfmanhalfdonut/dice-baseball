@@ -11,22 +11,43 @@ const townsLength = towns.length;
 const ROSTER_SIZE = 26;
 
 class Team extends WithUUID {
-  constructor() {
+  constructor(divisionId, data) {
     super();
-    
-    this.city = towns[random(townsLength)];
-    this.name = random(80) < 1 ? adjectives[random(adjectivesLength)] : ''; // some get an adjective
-    this.name += nouns[random(nounsLength)];
-    this.colors = {
-      primary: this.generateHex(),
-      secondary: this.generateHex(),
-      tertiary: this.generateHex(),
-    };
-    this.players = [];
-    
-    for (let i = 0; i < ROSTER_SIZE; i++) {
-      this.players.push(new Player());
+
+    let isNew = false;
+
+    if (!data) {
+      isNew = true;
+
+      let players = [];
+      for (let i = 0; i < ROSTER_SIZE; i++) {
+        let player = new Player(this._id);
+        players.push(player._id);
+      }
+
+      data = {
+        divisionId,
+        city: towns[random(townsLength)],
+        name: (random(80) < 1 ? adjectives[random(adjectivesLength)] : '') + nouns[random(nounsLength)],
+        colors: {
+          primary: this.generateHex(),
+          secondary: this.generateHex(),
+          tertiary: this.generateHex(),
+        },
+        players,
+      }
     }
+
+    this.hydrate(data);
+    isNew && this.put();
+  }
+
+  hydrate(data) {
+    this.divisionId = data.divisionId;
+    this.city = data.city;
+    this.name = data.name;
+    this.colors = data.colors;
+    this.players = data.players;
   }
 
   generateHex() {
@@ -41,7 +62,7 @@ class Team extends WithUUID {
   }
 
   getPlayer(id) {
-    return this.players.filter(player => player.id === id);
+    return this.players.filter(_id => _id === id);
   }
 
 }

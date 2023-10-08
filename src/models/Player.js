@@ -10,22 +10,44 @@ const lastLength = lastNames.length;
 const nationalityLength = nationalities.length;
 
 class Player extends WithUUID {
-  constructor() {
+  constructor(teamId, data) {
     super();
+
+    let isNew = false;
     
-    this.attributes = new PlayerAttributes();
-    this.firstName = firstNames[random(firstLength)];
-    this.lastName = lastNames[random(lastLength)];
-    this.number = random(99);
-    this.nationality = nationalities[random(nationalityLength)];
-    
-    if (this.attributes.pitching > this.attributes.fielding) {
-      this.position = 'Pitcher';
-    } else {
-      this.position = random(99) > 49 ? 'Infielder' : 'Outfielder';
+    if (!data) {
+      isNew = true;
+
+      let attributes = new PlayerAttributes();
+      let position = 'Pitcher';
+      if (attributes.fielding > attributes.pitching) {
+        position = random(99) > 49 ? 'Infielder' : 'Outfielder';
+      }
+
+      data = {
+        teamId,
+        attributes,
+        firstName: firstNames[random(firstLength)],
+        lastName: lastNames[random(lastLength)],
+        number: random(99),
+        nationality: nationalities[random(nationalityLength)],
+        position,
+      };
     }
+
+    this.hydrate(data);
+    isNew && this.put(); // save it if it's a new one
   }
 
+  hydrate(data) {
+    this.teamId = data.teamId;
+    this.attributes = data.attributes;
+    this.firstName = data.firstName;
+    this.lastName = data.lastName;
+    this.number = data.number;
+    this.nationality = data.nationality;
+    this.position = data.position;
+  }
 }
 
 export default Player;
