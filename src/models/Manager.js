@@ -1,6 +1,6 @@
-import WithUUID from './WithUUID.js';
+import Base from './Base.js';
 
-class Manager extends WithUUID {
+class Manager extends Base {
   constructor(name, email, displayName) {
     super();
 

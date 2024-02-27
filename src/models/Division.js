@@ -1,37 +1,19 @@
-import WithUUID from './WithUUID.js';
+import Base from './Base.js';
 import Team from './Team.js';
 
-class Division extends WithUUID {
-  constructor(name, conferenceId, teamCount = 5, data) {
+class Division extends Base {
+  constructor(name, conferenceId, teamCount = 5) {
     super();
-
-    let isNew = false;
-
-    if (!data) {
-      isNew = true;
-
-      let teams = [];
-      for (let i = 0; i < teamCount; i++) {
-        console.log('THIS ID', this._id);
-        let team = new Team(this._id);
-        teams.push(team._id);
-      }
-
-      data = {
-        conferenceId,
-        name,
-        teams,
-      };
-    }
     
-    this.hydrate(data);
-    isNew && this.put();
-  }
+    let teams = [];
+    for (let i = 0; i < teamCount; i++) {
+      let team = new Team(this._id);
+      teams.push(team._id);
+    }
 
-  hydrate(data) {
-    this.conferenceId = data.conferenceId;
-    this.name = data.name;
-    this.teams = data.teams;
+    this.conferenceId = conferenceId;
+    this.name = name;
+    this.teams = teams;
   }
 
   getTeam(id) {

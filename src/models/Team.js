@@ -1,4 +1,4 @@
-import WithUUID from './WithUUID.js';
+import Base from './Base.js';
 import Player from './Player.js';
 import nouns from '../data/nouns.js';
 import adjectives from '../data/adjectives.js';
@@ -10,44 +10,25 @@ const adjectivesLength = adjectives.length;
 const townsLength = towns.length;
 const ROSTER_SIZE = 26;
 
-class Team extends WithUUID {
-  constructor(divisionId, data) {
+class Team extends Base {
+  constructor(divisionId) {
     super();
 
-    let isNew = false;
-
-    if (!data) {
-      isNew = true;
-
-      let players = [];
-      for (let i = 0; i < ROSTER_SIZE; i++) {
-        let player = new Player(this._id);
-        players.push(player._id);
-      }
-
-      data = {
-        divisionId,
-        city: towns[random(townsLength)],
-        name: (random(80) < 1 ? adjectives[random(adjectivesLength)] : '') + nouns[random(nounsLength)],
-        colors: {
-          primary: this.generateHex(),
-          secondary: this.generateHex(),
-          tertiary: this.generateHex(),
-        },
-        players,
-      }
+    let players = [];
+    for (let i = 0; i < ROSTER_SIZE; i++) {
+      let player = new Player(this._id);
+      players.push(player._id);
     }
 
-    this.hydrate(data);
-    isNew && this.put();
-  }
-
-  hydrate(data) {
-    this.divisionId = data.divisionId;
-    this.city = data.city;
-    this.name = data.name;
-    this.colors = data.colors;
-    this.players = data.players;
+    this.divisionId = divisionId;
+    this.city = towns[random(townsLength)];
+    this.name = (random(80) < 1 ? adjectives[random(adjectivesLength)] : '') + nouns[random(nounsLength)];
+    this.colors = {
+      primary: this.generateHex(),
+      secondary: this.generateHex(),
+      tertiary: this.generateHex(),
+    };
+    this.players = players;
   }
 
   generateHex() {

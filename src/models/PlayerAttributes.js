@@ -1,7 +1,7 @@
-import WithUUID from './WithUUID.js';
+import Base from './Base.js';
 import { random } from '../services/Utils/Utils.js';
 
-class PlayerAttributes extends WithUUID {
+class PlayerAttributes extends Base {
   constructor() {
     super();
     

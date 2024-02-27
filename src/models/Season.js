@@ -1,6 +1,6 @@
-import WithUUID from './WithUUID.js';
+import Base from './Base.js';
 
-class Season extends WithUUID {
+class Season extends Base {
   constructor(year) {
     super();
 
