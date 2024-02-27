@@ -53,7 +53,7 @@ class Game extends HTMLElement {
   }
 
   async createLeague() {
-    let l = new League('Magic Wonk League'); // just trying this bad boy out
+    let l = new League().generate('Magic Wonk League'); // just trying this bad boy out
     localStorage.setItem('league', JSON.stringify(l));
     console.log(l);
   }

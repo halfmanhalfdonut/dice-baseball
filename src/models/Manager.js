@@ -1,12 +1,14 @@
 import Base from './Base.js';
 
 class Manager extends Base {
-  constructor(name, email, displayName) {
-    super();
-
+  generate(name, email, displayName) {
     this.name = name;
     this.email = email;
     this.displayName = displayName;
+
+    this.put();
+
+    return this;
   }
 }
 

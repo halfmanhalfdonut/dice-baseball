@@ -10,9 +10,7 @@ const lastLength = lastNames.length;
 const nationalityLength = nationalities.length;
 
 class Player extends Base {
-  constructor(teamId) {
-    super();
-
+  generate(teamId) {
     let attributes = new PlayerAttributes();
     let position = 'Pitcher';
     if (attributes.fielding > attributes.pitching) {
@@ -26,6 +24,10 @@ class Player extends Base {
     this.number = random(99);
     this.nationality = nationalities[random(nationalityLength)];
     this.position = position;
+
+    this.put();
+
+    return this;
   }
 }
 

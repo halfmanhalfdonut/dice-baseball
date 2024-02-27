@@ -3,15 +3,13 @@ import Season from './Season.js';
 import Base from './Base.js';
 
 class League extends Base {
-  constructor(name) {
-    super();
-
-    let americanLeague = new Conference('American League', this._id);
-    let nationalLeague = new Conference('National League', this._id);
+  generate(name) {
+    let americanLeague = new Conference().generate('American League', this._id);
+    let nationalLeague = new Conference().generate('National League', this._id);
 
     let conferences = [ americanLeague._id, nationalLeague._id ];
 
-    let season = new Season(1);
+    let season = new Season().generate(1);
     let seasons = [ season._id ];
 
     this.name = name;
@@ -19,6 +17,10 @@ class League extends Base {
     this.seasons = seasons;
     this.managers = []; // TODO: Add managers
     this.playerHistories = []; // TODO: add player histories
+
+    this.put();
+
+    return this;
   }
 
   getSeason(id) {

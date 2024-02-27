@@ -11,12 +11,10 @@ const townsLength = towns.length;
 const ROSTER_SIZE = 26;
 
 class Team extends Base {
-  constructor(divisionId) {
-    super();
-
+  generate(divisionId) {
     let players = [];
     for (let i = 0; i < ROSTER_SIZE; i++) {
-      let player = new Player(this._id);
+      let player = new Player().generate(this._id);
       players.push(player._id);
     }
 
@@ -29,6 +27,10 @@ class Team extends Base {
       tertiary: this.generateHex(),
     };
     this.players = players;
+
+    this.put();
+
+    return this;
   }
 
   generateHex() {

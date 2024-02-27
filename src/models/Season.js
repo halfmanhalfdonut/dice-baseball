@@ -1,13 +1,15 @@
 import Base from './Base.js';
 
 class Season extends Base {
-  constructor(year) {
-    super();
-
+  generate(year) {
     this.year = year; // 1-based "year" of a season
     this.schedule = [];
     this.playoff = [];
-    this.champion;
+    this.champion = null;
+
+    this.put();
+
+    return this;
   }
 
   generateSchedule() {
