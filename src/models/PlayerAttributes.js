@@ -1,29 +1,74 @@
 import Base from './Base.js';
-import { random } from '../services/Utils/Utils.js';
 
 class PlayerAttributes extends Base {
-  constructor() {
+  constructor(
+    handedness = '',
+    stamina = 50,
+    composure = 50,
+    strength = 50,
+    awareness = 50,
+    batting = 50,
+    pitching = 50,
+    fielding = 50,
+    streak = 50
+  ) {
     super();
-    
-    // handedness can be right, left, or switch
-    let randomHand = random(99);
-    this.handedness = 'right';
-    if (randomHand > 75) { // 25% chance of being lefty
-      this.handedness = 'left';
-    } else if (randomHand > 65) { // 10% chance of being switch
-      this.handedness = 'switch';
-    }
 
-    this.stamina = random(99);
-    this.composure = random(99);
-    this.strength = random(99);
-    this.awareness = random(99);
-    this.batting = random(99);
-    this.pitching = random(99);
-    this.fielding = random(99);
-    this.streak = 50;
+    this.handedness = handedness;
+    this.stamina = stamina;
+    this.composure = composure;
+    this.strength = strength;
+    this.awareness = awareness;
+    this.batting = batting;
+    this.pitching = pitching;
+    this.fielding = fielding;
+    this.streak = streak;
   }
 
+  setHandedness(handedness) {
+    this.handedness = handedness;
+    return this;
+  }
+
+  setStamina(stamina) {
+    this.stamina = stamina;
+    return this;
+  }
+
+  setComposure(composure) {
+    this.composure = composure;
+    return this;
+  }
+
+  setStrength(strength) {
+    this.strength = strength;
+    return this;
+  }
+
+  setAwareness(awareness) {
+    this.awareness = awareness;
+    return this;
+  }
+
+  setBatting(batting) {
+    this.batting = batting;
+    return this;
+  }
+
+  setPitching(pitching) {
+    this.pitching = pitching;
+    return this;
+  }
+
+  setFielding(fielding) {
+    this.fielding = fielding;
+    return this;
+  }
+
+  setStreak(streak) {
+    this.streak = streak;
+    return this;
+  }
 }
 
 export default PlayerAttributes;

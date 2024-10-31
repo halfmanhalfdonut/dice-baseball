@@ -1,32 +1,58 @@
 import Base from './Base.js';
-import PlayerAttributes from './PlayerAttributes.js';
-import firstNames from '../data/first-names.js';
-import lastNames from '../data/last-names.js';
-import nationalities from '../data/nationalities.js';
-import { random } from '../services/Utils/Utils.js';
-
-const firstLength = firstNames.length;
-const lastLength = lastNames.length;
-const nationalityLength = nationalities.length;
 
 class Player extends Base {
-  generate(teamId) {
-    let attributes = new PlayerAttributes();
-    let position = 'Pitcher';
-    if (attributes.fielding > attributes.pitching) {
-      position = random(99) > 49 ? 'Infielder' : 'Outfielder';
-    }
+  constructor(
+    teamId = '',
+    attributes = null,
+    firstName = '',
+    lastName = '',
+    number = 0,
+    nationality = '',
+    position = ''
+  ) {
+    super();
 
     this.teamId = teamId;
     this.attributes = attributes;
-    this.firstName = firstNames[random(firstLength)];
-    this.lastName = lastNames[random(lastLength)];
-    this.number = random(99);
-    this.nationality = nationalities[random(nationalityLength)];
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.number = number;
+    this.nationality = nationality;
     this.position = position;
+  }
 
-    this.put();
+  setTeamId(teamId) {
+    this.teamId = teamId;
+    return this;
+  }
 
+  setAttributes(attributes) {
+    this.attributes = attributes;
+    return this;
+  }
+
+  setFirstName(firstName) {
+    this.firstName = firstName;
+    return this;
+  }
+
+  setLastName(lastName) {
+    this.lastName = lastName;
+    return this;
+  }
+
+  setNumber(number) {
+    this.number = number;
+    return this;
+  }
+
+  setNationality(nationality) {
+    this.nationality = nationality;
+    return this;
+  }
+
+  setPosition(position) {
+    this.position = position;
     return this;
   }
 }

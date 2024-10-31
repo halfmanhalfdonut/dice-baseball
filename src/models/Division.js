@@ -1,27 +1,28 @@
 import Base from './Base.js';
-import Team from './Team.js';
 
 class Division extends Base {
-  generate(name, conferenceId, teamCount = 5) {
-    let teams = [];
-    for (let i = 0; i < teamCount; i++) {
-      let team = new Team().generate(this._id);
-      teams.push(team._id);
-    }
+  constructor(name = '', conferenceId = '', teams = []) {
+    super();
 
-    this.conferenceId = conferenceId;
     this.name = name;
+    this.conferenceId = conferenceId;
     this.teams = teams;
-    
-    this.put();
+  }
 
+  setName(name) {
+    this.name = name;
     return this;
   }
 
-  getTeam(id) {
-    return this.teams.filter(_id => _id === id);
+  setConferenceId(conferenceId) {
+    this.conferenceId = conferenceId;
+    return this;
   }
 
+  setTeams(teams) {
+    this.teams = teams;
+    return this;
+  }
 }
 
 export default Division;

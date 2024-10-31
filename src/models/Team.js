@@ -1,53 +1,46 @@
 import Base from './Base.js';
-import Player from './Player.js';
-import nouns from '../data/nouns.js';
-import adjectives from '../data/adjectives.js';
-import towns from '../data/towns.js';
-import { random } from '../services/Utils/Utils.js';
-
-const nounsLength = nouns.length;
-const adjectivesLength = adjectives.length;
-const townsLength = towns.length;
-const ROSTER_SIZE = 26;
 
 class Team extends Base {
-  generate(divisionId) {
-    let players = [];
-    for (let i = 0; i < ROSTER_SIZE; i++) {
-      let player = new Player().generate(this._id);
-      players.push(player._id);
-    }
+  constructor(
+    divisionId = '',
+    city = '',
+    name = '',
+    colors = {},
+    players = []
+  ) {
+    super();
 
     this.divisionId = divisionId;
-    this.city = towns[random(townsLength)];
-    this.name = (random(80) < 1 ? adjectives[random(adjectivesLength)] : '') + nouns[random(nounsLength)];
-    this.colors = {
-      primary: this.generateHex(),
-      secondary: this.generateHex(),
-      tertiary: this.generateHex(),
-    };
+    this.city = city;
+    this.name = name;
+    this.colors = colors;
     this.players = players;
+  }
 
-    this.put();
-
+  setDivisionId(divisionId) {
+    this.divisionId = divisionId;
     return this;
   }
 
-  generateHex() {
-    let chars = 'abcdef0123456789'.split('');
-  
-    let hex = '#';
-    for (let i = 0; i < 6; i++) {
-      hex += chars[random(16)];
-    }
-  
-    return hex;
+  setCity(city) {
+    this.city = city;
+    return this;
   }
 
-  getPlayer(id) {
-    return this.players.filter(_id => _id === id);
+  setName(name) {
+    this.name = name;
+    return this;
   }
 
+  setColors(colors) {
+    this.colors = colors;
+    return this;
+  }
+
+  setPlayers(players) {
+    this.players = players;
+    return this;
+  }
 }
 
 export default Team;

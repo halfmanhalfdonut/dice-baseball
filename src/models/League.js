@@ -1,38 +1,39 @@
-import Conference from './Conference.js';
-import Season from './Season.js';
 import Base from './Base.js';
 
 class League extends Base {
-  generate(name) {
-    let americanLeague = new Conference().generate('American League', this._id);
-    let nationalLeague = new Conference().generate('National League', this._id);
-
-    let conferences = [ americanLeague._id, nationalLeague._id ];
-
-    let season = new Season().generate(1);
-    let seasons = [ season._id ];
+  constructor(name = '', conferences = [], seasons = [], managers = [], playerHistories = []) {
+    super();
 
     this.name = name;
     this.conferences = conferences;
     this.seasons = seasons;
-    this.managers = []; // TODO: Add managers
-    this.playerHistories = []; // TODO: add player histories
+    this.managers = managers;
+    this.playerHistories = playerHistories;
+  }
 
-    this.put();
-
+  setName(name) {
+    this.name = name;
     return this;
   }
 
-  getSeason(id) {
-    return this.seasons.filter(_id => _id === id);
+  setConferences(conferences) {
+    this.conferences = conferences;
+    return this;
   }
 
-  getManager(id) {
-    return this.managers.filter(_id => _id === id);
+  setSeasons(seasons) {
+    this.seasons = seasons;
+    return this;
   }
 
-  getPlayerHistory(id) {
-    return this.playerHistories.filter(_id => _id === id);
+  setManagers(managers) {
+    this.managers = managers;
+    return this;
+  }
+
+  setPlayerHistories(playerHistories) {
+    this.playerHistories = playerHistories;
+    return this;
   }
 }
 

@@ -1,25 +1,28 @@
 import Base from './Base.js';
-import Division from './Division.js';
 
 class Conference extends Base {
-  generate(name, leagueId) {
-    let east = new Division().generate('East', this._id);
-    let central = new Division().generate('Central', this._id);
-    let west = new Division().generate('West', this._id);
+  constructor(name = '', leagueId = '', divisions = []) {
+    super();
 
-    this.leagueId = leagueId;
     this.name = name;
-    this.divisions = [ east._id, central._id, west._id ];
+    this.leagueId = leagueId;
+    this.divisions = divisions;
+  }
 
-    this.put();
-
+  setName(name) {
+    this.name = name;
     return this;
   }
 
-  getDivision(id) {
-    return this.divisions.filter(_id => _id === id);
+  setLeagueId(leagueId) {
+    this.leagueId = leagueId;
+    return this;
   }
 
+  setDivisions(divisions) {
+    this.divisions = divisions;
+    return this;
+  }
 }
 
 export default Conference;
