@@ -1,25 +1,39 @@
-import WithUUID from './WithUUID.js';
+import Base from './Base.js';
 
-class League extends WithUUID {
-  constructor(name) {
+class League extends Base {
+  constructor(name = '', conferences = [], seasons = [], managers = [], playerHistories = []) {
     super();
-    
+
     this.name = name;
-    this.seasons = [];
-    this.managers = [];
-    this.playerHistories = [];
+    this.conferences = conferences;
+    this.seasons = seasons;
+    this.managers = managers;
+    this.playerHistories = playerHistories;
   }
 
-  getSeason = id => {
-    return this.seasons.filter(season => season.id === id);
+  setName(name) {
+    this.name = name;
+    return this;
   }
 
-  getManager = id => {
-    return this.managers.filter(manager => manager.id === id);
+  setConferences(conferences) {
+    this.conferences = conferences;
+    return this;
   }
 
-  getPlayerHistory = id => {
-    return this.playerHistories.filter(history => history.id === id);
+  setSeasons(seasons) {
+    this.seasons = seasons;
+    return this;
+  }
+
+  setManagers(managers) {
+    this.managers = managers;
+    return this;
+  }
+
+  setPlayerHistories(playerHistories) {
+    this.playerHistories = playerHistories;
+    return this;
   }
 }
 

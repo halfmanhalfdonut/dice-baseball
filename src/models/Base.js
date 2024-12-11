@@ -1,9 +1,9 @@
 import { generateUUID } from '../services/Utils/Utils.js';
 
-class WithUUID {
+class Base {
   constructor() {
-    this.id = generateUUID();
+    this._id = this._id ?? generateUUID();
   }
 }
 
-export default WithUUID;
+export default Base;

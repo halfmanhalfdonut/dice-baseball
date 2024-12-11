@@ -1,0 +1,16 @@
+export default [
+  'United States',
+  'Canada',
+  'Mexico',
+  'Puerto Rico',
+  'Cuba',
+  'Dominican Republic',
+  'Japan',
+  'Korea',
+  'Venezuela',
+  'Colombia',
+  'Panama',
+  'Australia',
+  'Curaçao',
+  'Germany',
+];
