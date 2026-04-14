@@ -1,0 +1,6 @@
+:root{--bg:#111;--card:#191919;--accent:#2a7}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:#eee}
+
+.card{background:var(--card);padding:12px;border-radius:8px;margin:8px}
+.muted{color:#aaa;font-size:0.9em}
